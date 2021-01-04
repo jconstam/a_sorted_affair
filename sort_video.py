@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 import random
-from sort_video.data_tools import data_store
 
 from sort_video import image_tools
 from sort_video import data_tools
@@ -14,7 +13,7 @@ if __name__ == '__main__':
 
     drawer = image_tools.draw_image(width, height, size)
 
-    store = data_store(drawer, 'output/testdata.png')
+    store = data_tools.data_store(drawer, 'output/testdata.png')
     store.load(rands)
 
     print(store[0])
