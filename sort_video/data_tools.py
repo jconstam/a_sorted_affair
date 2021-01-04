@@ -1,36 +1,39 @@
 #!/usr/bin/python3
 
-import os
+import cv2
 
 from sort_video import image_tools
 
 class data_store:
-    def __init__(self, drawer: image_tools.draw_image, file_name: str) -> None:
+    def __init__(self, drawer: image_tools.draw_image, video: cv2.VideoWriter) -> None:
         self.__data = None
         self.__drawer = drawer
-        self.__file_name = file_name
-        self.__file_index = 0
+        self.__video = video
         self.__reset_stats()
 
     def __reset_stats(self) -> None:
         self.__accesses = 0
         self.__swaps = 0
+        self.__compares = 0
 
-    def __current_file_name(self) -> str:
-        name, ext = os.path.splitext(self.__file_name)
-        curr_name = '{}_{}{}'.format(name, self.__file_index, ext)
-        self.__file_index = self.__file_index + 1
-        return curr_name
+    def __check_loaded(self) -> None:
+        assert self.__data, 'must load data before accessing'
 
-    def __update_stats(self, draw=False, swap=False, access=False) -> None:
+    def __update_stats(self, draw=False, swap=False, access=False, compare=False) -> None:
         if swap:
             self.__swaps = self.__swaps + 1
             draw = True
         if access:
             self.__accesses = self.__accesses + 1
+        if compare:
+            self.__compares = self.__compares + 1
 
         if draw:
-            self.__drawer.draw(self.__data, self.__current_file_name())
+            self.__video.write(self.__drawer.draw(self.__data))
+
+    def size(self) -> int:
+        self.__check_loaded()
+        return len(self.__data)
 
     def load(self, data: list) -> None:
         for value in data:
@@ -40,13 +43,27 @@ class data_store:
         self.__update_stats(draw=True)
 
     def __getitem__(self, key: int) -> int:
-        assert self.__data, 'must load data before accessing'
+        self.__check_loaded()
         self.__update_stats(access=True)
         return self.__data[key]
 
+    def done(self):
+        self.__update_stats(draw=True)
+
     def swap(self, index1: int, index2: int) -> None:
-        assert self.__data, 'must load data before accessing'
+        self.__check_loaded()
         temp = self.__data[index1]
         self.__data[index1] = self.__data[index2]
         self.__data[index2] = temp
         self.__update_stats(swap=True)
+
+    def is_less_than(self, index1: int, index2: int) -> bool:
+        self.__check_loaded()
+        self.__update_stats(compare=True)
+        return self.__data[index1] < self.__data[index2]
+
+    def is_greater_than(self, index1: int, index2: int) -> bool:
+        self.__check_loaded()
+        self.__update_stats(compare=True)
+        return self.__data[index1] > self.__data[index2]
+

@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+import numpy
+
 from PIL import Image, ImageDraw
 
 
@@ -11,7 +13,7 @@ class draw_image:
         self.bar_width = self.width / self.size
         self.bar_height_scaler = self.height / self.size
 
-    def draw(self, data, file_name) -> None:
+    def draw(self, data):
         img = Image.new('RGB', (self.width, self.height), (255, 255, 255))
         draw = ImageDraw.Draw(img)
 
@@ -23,4 +25,4 @@ class draw_image:
             draw.line((start_x, start_y, end_x, end_y),
                       fill=(0, 0, 0), width=int(self.bar_width))
 
-        img.save(file_name)
+        return numpy.array(img)
