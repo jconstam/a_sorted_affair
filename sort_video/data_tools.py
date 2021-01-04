@@ -2,10 +2,10 @@
 
 import cv2
 
-from sort_video import image_tools
+from sort_video.image_tools import draw_image
 
 class data_store:
-    def __init__(self, drawer: image_tools.draw_image, video: cv2.VideoWriter) -> None:
+    def __init__(self, drawer: draw_image, video: cv2.VideoWriter) -> None:
         self.__data = None
         self.__drawer = drawer
         self.__video = video

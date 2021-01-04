@@ -1,21 +1,21 @@
 #!/usr/bin/python3
 
-from sorters import sort_base
-from sort_video import data_tools
+from sorters.sort_base import sort_base
+from sort_video.data_tools import data_store
 
 
-class insertion(sort_base.sort_base):
+class insertion_sort(sort_base):
     def __init__(self) -> None:
         super().__init__()
 
-    def _sort_name(self) -> str:
+    def name(self) -> str:
         return 'Insertion'
 
-    def _do_sort(self, data: data_tools.data_store) -> None:
-        sorted = False
-        while not sorted:
-            sorted = True
-            for index in range(data.size() - 1):
-                if data.is_less_than(index, index + 1):
-                    data.swap(index, index + 1)
-                    sorted = False
+    def _do_sort(self, data: data_store) -> None:
+        i = 1
+        while i < data.size():
+            j = i
+            while j > 0 and data.is_less_than(j - 1, j):
+                data.swap(j, j - 1)
+                j = j - 1
+            i = i + 1
