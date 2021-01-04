@@ -20,7 +20,7 @@ if __name__ == '__main__':
     for f in files:
         os.remove(f)
 
-    size = 20
+    size = 50
     width = 3840
     height = 2160
     fps = 100
@@ -35,6 +35,6 @@ if __name__ == '__main__':
     store = data_tools.data_store(drawer, video)
     store.load(rands)
 
-    insertion.sort(store)
+    insertion.insertion().sort(store)
 
     video.release()
