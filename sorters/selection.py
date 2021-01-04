@@ -15,7 +15,7 @@ class selection_sort(sort_base):
         for i in range(data.size()):
             min_index = i
             for j in range(i + 1, data.size()):
-                if data.is_less_than(min_index, j):
+                if data.is_greater_than(min_index, j):
                     min_index = j
             if not i == min_index:
                 data.swap(min_index, i)

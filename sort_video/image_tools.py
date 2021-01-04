@@ -18,10 +18,10 @@ class draw_image:
         draw = ImageDraw.Draw(img)
 
         for i in range(self.size):
-            start_x = i*self.bar_width + (0.5 * self.bar_width)
+            start_x = (i + 0.5) * self.bar_width
             start_y = self.height
             end_x = start_x
-            end_y = data[i] * self.bar_height_scaler
+            end_y = self.height - (data[i] * self.bar_height_scaler)
             draw.line((start_x, start_y, end_x, end_y),
                       fill=(0, 0, 0), width=int(self.bar_width))
 

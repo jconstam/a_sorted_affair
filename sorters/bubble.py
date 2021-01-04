@@ -16,7 +16,7 @@ class bubble_sort(sort_base):
         while not sorted:
             sorted = True
             for i in range(data.size() - 1):
-                if data.is_less_than(i, i + 1):
+                if data.is_greater_than(i, i + 1):
                     data.swap(i, i + 1, skip_draw=True)
                     sorted = False
             data.draw()

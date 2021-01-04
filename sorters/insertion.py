@@ -15,7 +15,7 @@ class insertion_sort(sort_base):
         for i in range(1, data.size()):
             src_index = i
             for j in range(0, i):
-                if data.is_greater_than(src_index, j):
+                if data.is_less_than(src_index, j):
                     data.move(src_index, j)
                     break
             data.draw()
