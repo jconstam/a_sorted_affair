@@ -24,5 +24,5 @@ class sort_base(abc.ABC):
         start = datetime.datetime.now()
         self._do_sort(data)
         end = datetime.datetime.now()
-        data.done()
-        print('Done in {}'.format(end - start))
+        print('\tDone in {}'.format(end - start))
+        data.draw()

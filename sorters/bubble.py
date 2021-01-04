@@ -1,0 +1,22 @@
+#!/usr/bin/python3
+
+from sorters.sort_base import sort_base
+from sort_video.data_tools import data_store
+
+
+class bubble_sort(sort_base):
+    def __init__(self) -> None:
+        super().__init__()
+
+    def name(self) -> str:
+        return 'Bubble'
+
+    def _do_sort(self, data: data_store) -> None:
+        sorted = False
+        while not sorted:
+            sorted = True
+            for i in range(data.size() - 1):
+                if data.is_less_than(i, i + 1):
+                    data.swap(i, i + 1, skip_draw=True)
+                    sorted = False
+            data.draw()

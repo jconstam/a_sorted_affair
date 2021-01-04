@@ -18,3 +18,4 @@ class insertion_sort(sort_base):
                 if data.is_greater_than(src_index, j):
                     data.move(src_index, j)
                     break
+            data.draw()
