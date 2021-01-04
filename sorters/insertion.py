@@ -12,10 +12,9 @@ class insertion_sort(sort_base):
         return 'Insertion'
 
     def _do_sort(self, data: data_store) -> None:
-        i = 1
-        while i < data.size():
-            j = i
-            while j > 0 and data.is_less_than(j - 1, j):
-                data.swap(j, j - 1)
-                j = j - 1
-            i = i + 1
+        for i in range(1, data.size()):
+            src_index = i
+            for j in range(0, i):
+                if data.is_greater_than(src_index, j):
+                    data.move(src_index, j)
+                    break

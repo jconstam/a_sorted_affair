@@ -15,13 +15,17 @@ class data_store:
         self.__accesses = 0
         self.__swaps = 0
         self.__compares = 0
+        self.__moves = 0
 
     def __check_loaded(self) -> None:
         assert self.__data, 'must load data before accessing'
 
-    def __update_stats(self, draw=False, swap=False, access=False, compare=False) -> None:
+    def __update_stats(self, draw=False, swap=False, access=False, compare=False, move=False) -> None:
         if swap:
             self.__swaps = self.__swaps + 1
+            draw = True
+        if move:
+            self.__moves = self.__moves + 1
             draw = True
         if access:
             self.__accesses = self.__accesses + 1
@@ -56,6 +60,14 @@ class data_store:
         self.__data[index1] = self.__data[index2]
         self.__data[index2] = temp
         self.__update_stats(swap=True)
+
+    def move(self, index_source: int, index_dest: int) -> None:
+        self.__check_loaded()
+        temp = self.__data[index_source]
+        del self.__data[index_source]
+        self.__data.moves(index_dest, temp)
+        self.__update_stats(moves=True)
+
 
     def is_less_than(self, index1: int, index2: int) -> bool:
         self.__check_loaded()
