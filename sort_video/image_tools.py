@@ -4,14 +4,14 @@ from PIL import Image, ImageDraw
 
 
 class draw_image:
-    def __init__(self, width, height, size):
+    def __init__(self, width, height, size) -> None:
         self.width = width
         self.height = height
         self.size = size
         self.bar_width = self.width / self.size
         self.bar_height_scaler = self.height / self.size
 
-    def draw(self, data, file_name):
+    def draw(self, data, file_name) -> None:
         img = Image.new('RGB', (self.width, self.height), (255, 255, 255))
         draw = ImageDraw.Draw(img)
 
