@@ -7,6 +7,7 @@ from sort_video.data_tools import data_store
 class merge_sort(sort_base):
     def __init__(self) -> None:
         super().__init__()
+        self.draw_counter = 0
 
     def name(self) -> str:
         return 'Merge'
@@ -27,10 +28,13 @@ class merge_sort(sort_base):
             return
         while start <= mid and start2 <= end:
             if data[start] <= data[start2]:
-                start = start + 1
+                start += 1
             else:
                 data.move(start2, start)
-                data.draw()
-                start = start + 1
-                mid = mid + 1
-                start2 = start2 + 1
+                start += 1
+                mid += 1
+                start2 += 1
+
+                self.draw_counter += 1
+                if self.draw_counter % 4 == 0:
+                    data.draw()
