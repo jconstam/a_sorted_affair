@@ -12,6 +12,7 @@ from sorters.sort_base import sort_base
 from sorters.insertion import insertion_sort
 from sorters.selection import selection_sort
 from sorters.bubble import bubble_sort
+from sorters.merge import merge_sort
 
 
 def make_video(folder: str, sorter: sort_base, rand_data: list) -> None:
@@ -36,9 +37,9 @@ def make_video(folder: str, sorter: sort_base, rand_data: list) -> None:
     store.convert(raw_file_name, final_file_name)
 
 if __name__ == '__main__':
-    size = 10000
+    size = 1000
     folder = 'output'
     rand_data = random.sample(range(0, size), size)
-    sorters = [insertion_sort(), selection_sort(), bubble_sort()]
+    sorters = [insertion_sort(), selection_sort(), bubble_sort(), merge_sort()]
     for sorter in sorters:
         make_video(folder, sorter, rand_data.copy())

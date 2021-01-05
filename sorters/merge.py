@@ -1,0 +1,36 @@
+#!/usr/bin/python3
+
+from sorters.sort_base import sort_base
+from sort_video.data_tools import data_store
+
+
+class merge_sort(sort_base):
+    def __init__(self) -> None:
+        super().__init__()
+
+    def name(self) -> str:
+        return 'Merge'
+
+    def _do_sort(self, data: data_store) -> None:
+        self.__merge_sort(data, 0, data.size() - 1)
+
+    def __merge_sort(self, data: data_store, left: int, right: int) -> None:
+        if left < right:
+            mid = int(left + (right - left) / 2)
+            self.__merge_sort(data, left, mid)
+            self.__merge_sort(data, mid + 1, right)
+            self.__merge(data, left, mid, right)
+
+    def __merge(self, data: data_store, start: int, mid: int, end: int) -> None:
+        start2 = mid + 1
+        if(data[mid] <= data[start2]):
+            return
+        while start <= mid and start2 <= end:
+            if data[start] <= data[start2]:
+                start = start + 1
+            else:
+                data.move(start2, start)
+                data.draw()
+                start = start + 1
+                mid = mid + 1
+                start2 = start2 + 1
