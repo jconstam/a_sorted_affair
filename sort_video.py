@@ -75,7 +75,7 @@ if __name__ == '__main__':
                 sorters.append(alg_classes[key]())
                 break
         else:
-            assert 0 == 1, 'Algorithm {} not found'.format(alg)
+            raise Exception('Algorithm {} not found'.format(alg))
 
     rand_data = random.sample(range(0, args.size), args.size)
     for sorter in sorters:
