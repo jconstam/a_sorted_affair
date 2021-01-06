@@ -65,7 +65,7 @@ if __name__ == '__main__':
                         default='output/', help='The path to put the videos')
     parser.add_argument('-w', '--width', type=int,
                         default=1920, help='The width of the video in pixels')
-    parser.add_argument('-h', '--height', type=int,
+    parser.add_argument('-g', '--height', type=int,
                         default=1080, help='The height of the video in pixels')
     parser.add_argument('-f', '--fps', type=int,
                         default=60, help='The framerate of the video in frames per second')
@@ -78,6 +78,7 @@ if __name__ == '__main__':
 
     print('Sorting arrays of {} elements'.format(args.size))
     print('Output will be located in "{}"'.format(folder))
+    print('Output will be {}x{} @ {}fps'.format(args.width, args.height, args.fps))
     sorters = []
     for alg in args.algorithms:
         if alg == 'all':
@@ -95,4 +96,4 @@ if __name__ == '__main__':
 
     rand_data = random.sample(range(0, args.size), args.size)
     for sorter in sorters:
-        make_video(folder, sorter, rand_data.copy())
+        make_video(folder, sorter, rand_data.copy(), args.width, args.height, args.fps)
