@@ -21,6 +21,9 @@ class data_store:
         self.compares = 0
         self.moves = 0
 
+    def __str__(self) -> str:
+        return '{}'.format(self.__data)
+
     def __check_loaded(self) -> None:
         assert self.__data, 'must load data before accessing'
 

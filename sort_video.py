@@ -38,10 +38,7 @@ alg_classes = {
 }
 
 
-def make_video(folder: str, sorter: sort_base, rand_data: list) -> None:
-    width = 3840
-    height = 2160
-    fps = 60
+def make_video(folder: str, sorter: sort_base, rand_data: list, width: int, height: int, fps: int) -> None:
     size = len(rand_data)
 
     drawer = draw_image(width, height, size)
@@ -60,10 +57,20 @@ def make_video(folder: str, sorter: sort_base, rand_data: list) -> None:
     store.convert(raw_file_name, final_file_name)
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Generate videos of sorting algorithms in action')
-    parser.add_argument('-s', '--size', type=int, default=1000, help='The size of the array to be sorted')
-    parser.add_argument('-o', '--outputFolder', type=str, default='output/', help='The path to put the videos')
-    parser.add_argument('algorithms', metavar='alg', type=str, nargs='+', help='Sorting algorithms to run')
+    parser = argparse.ArgumentParser(
+        description='Generate videos of sorting algorithms in action')
+    parser.add_argument('-s', '--size', type=int, default=10000,
+                        help='The size of the array to be sorted')
+    parser.add_argument('-o', '--outputFolder', type=str,
+                        default='output/', help='The path to put the videos')
+    parser.add_argument('-w', '--width', type=int,
+                        default=1920, help='The width of the video in pixels')
+    parser.add_argument('-h', '--height', type=int,
+                        default=1080, help='The height of the video in pixels')
+    parser.add_argument('-f', '--fps', type=int,
+                        default=60, help='The framerate of the video in frames per second')
+    parser.add_argument('algorithms', metavar='alg', type=str,
+                        nargs='+', help='Sorting algorithms to run')
     args = parser.parse_args()
 
     folder = os.path.abspath(args.outputFolder)

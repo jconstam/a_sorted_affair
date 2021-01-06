@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+import random
+
 from sorters.sort_base import sort_base
 from sort_video.data_tools import data_store
 
@@ -23,18 +25,17 @@ class quick_sort(sort_base):
             self.__quick_sort(data, pivot + 1, high)
 
     def __partition(self, data: data_store, low: int, high: int) -> None:
-        pivot_val = data[high]
+        pivot_index = random.randint(low, high)
+        data.swap(pivot_index, low)
+        pivot_index = low
 
-        i = (low - 1)
-
-        for j in range(low, high):
-            if data.is_less_than(j, high):
-                i += 1
-                data.swap(i, j)
+        for j in range(low + 1, high + 1):
+            if data.is_less_than(j, pivot_index):
+                data.move(j, pivot_index)
+                pivot_index += 1
 
                 self.draw_counter += 1
                 if self.draw_counter % 10 == 0:
                     data.draw(self.name())
-        data.swap(i + 1, high)
         data.draw(self.name())
-        return i + 1
+        return pivot_index
