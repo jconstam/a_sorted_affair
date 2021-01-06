@@ -27,7 +27,7 @@ class merge_sort(sort_base):
         if(data[mid] <= data[start2]):
             return
         while start <= mid and start2 <= end:
-            if data[start] <= data[start2]:
+            if data.is_less_than(start, start2):
                 start += 1
             else:
                 data.move(start2, start)
@@ -37,4 +37,4 @@ class merge_sort(sort_base):
 
                 self.draw_counter += 1
                 if self.draw_counter % 4 == 0:
-                    data.draw()
+                    data.draw(self.name())

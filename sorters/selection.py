@@ -19,4 +19,4 @@ class selection_sort(sort_base):
                     min_index = j
             if not i == min_index:
                 data.swap(min_index, i)
-            data.draw()
+            data.draw(self.name())

@@ -25,4 +25,4 @@ class sort_base(abc.ABC):
         self._do_sort(data)
         end = datetime.datetime.now()
         print('\tDone in {}'.format(end - start))
-        data.draw()
+        data.draw(self.name())

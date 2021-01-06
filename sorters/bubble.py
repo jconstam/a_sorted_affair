@@ -19,4 +19,4 @@ class bubble_sort(sort_base):
                 if data.is_greater_than(i, i + 1):
                     data.swap(i, i + 1, skip_draw=True)
                     sorted = False
-            data.draw()
+            data.draw(self.name())

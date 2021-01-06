@@ -48,7 +48,7 @@ def make_video(folder: str, sorter: sort_base, rand_data: list) -> None:
     video = VideoWriter(raw_file_name, VideoWriter_fourcc(*'mp4v'), float(fps), (width, height))
 
     store = data_store(drawer, video)
-    store.load(rand_data)
+    store.load(rand_data, sorter.name())
     sorter.sort(store)
 
     video.release()
