@@ -14,23 +14,27 @@ from sorters.insertion import insertion_sort
 from sorters.selection import selection_sort
 from sorters.bubble import bubble_sort
 from sorters.merge import merge_sort
+from sorters.quick import quick_sort
 
 INSERT_NAME = 'Insertion'
 SELECT_NAME = 'Selection'
 BUBBLE_NAME = 'Bubble'
 MERGE_NAME = 'Merge'
+QUICK_NAME = 'Quick'
 
 short_names = {
     INSERT_NAME: ['ins', 'insert', 'insertion'],
     SELECT_NAME: ['sel', 'select', 'selection'],
     BUBBLE_NAME: ['bub', 'bubble'],
-    MERGE_NAME: ['merge']
+    MERGE_NAME: ['merge'],
+    QUICK_NAME: ['quick']
 }
 alg_classes = {
     INSERT_NAME: insertion_sort,
     SELECT_NAME: selection_sort,
     BUBBLE_NAME: bubble_sort,
-    MERGE_NAME: merge_sort
+    MERGE_NAME: merge_sort,
+    QUICK_NAME: quick_sort
 }
 
 
@@ -69,6 +73,11 @@ if __name__ == '__main__':
     print('Output will be located in "{}"'.format(folder))
     sorters = []
     for alg in args.algorithms:
+        if alg == 'all':
+            for key, value in alg_classes.items():
+                print('Using sort algorithm "{}"'.format(key))
+                sorters.append(value())
+            break
         for key, value in short_names.items():
             if alg.lower() in value:
                 print('Using sort algorithm "{}"'.format(key))
