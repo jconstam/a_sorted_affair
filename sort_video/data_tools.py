@@ -31,6 +31,14 @@ class data_store:
         self.__check_loaded()
         return len(self.__data)
 
+    def sortedness(self) -> float:
+        inversions = 0
+        for i in range(len(self.__data) - 1):
+            if self.__data[i] > self.__data[i + 1]:
+                inversions += 1
+        sortedness = 100 - ((inversions / (len(self.__data) / 2)) * 100)
+        return sortedness if sortedness > 0.0 else 0.0
+
     def load(self, data: list, name: str) -> None:
         for value in data:
             assert type(value) is int, 'data must contain only ints'
