@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 from sorters.sort_base import sort_base
-from sort_video.data_tools import data_store
+from sort_util.data_tools import data_store
 
 
 class bubble_sort(sort_base):

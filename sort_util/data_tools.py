@@ -6,7 +6,7 @@ import subprocess
 
 import cv2
 
-from sort_video.image_tools import draw_image
+from sort_util.image_tools import draw_image
 
 class data_store:
     def __init__(self, drawer: draw_image, video: cv2.VideoWriter) -> None:

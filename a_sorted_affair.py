@@ -6,8 +6,8 @@ import argparse
 
 from cv2 import VideoWriter, VideoWriter_fourcc
 
-from sort_video.image_tools import draw_image
-from sort_video.data_tools import data_store
+from sort_util.image_tools import draw_image
+from sort_util.data_tools import data_store
 
 from sorters.sort_base import sort_base
 from sorters.insertion import insertion_sort
@@ -74,7 +74,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     folder = os.path.abspath(args.outputFolder)
-    assert os.path.exists(folder), 'Output path does not exist'
+    if not os.path.exists(folder):
+        os.makedirs(folder)
 
     print('Sorting arrays of {} elements'.format(args.size))
     print('Output will be located in "{}"'.format(folder))
