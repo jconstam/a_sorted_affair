@@ -6,8 +6,8 @@ import argparse
 
 from cv2 import VideoWriter, VideoWriter_fourcc
 
-from sort_video.image_tools import draw_image
-from sort_video.data_tools import data_store
+from sort_util.image_tools import draw_image
+from sort_util.data_tools import data_store
 
 from sorters.sort_base import sort_base
 from sorters.insertion import insertion_sort
