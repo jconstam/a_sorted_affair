@@ -13,7 +13,7 @@ jobs:
       - uses: oprypin/find-latest-tag@v1
         with:
           repository: jconstam/a_sorted_affair
-          releases-only: true
+          releases-only: false
         id: octokit
       - name: Testing
         run: |
