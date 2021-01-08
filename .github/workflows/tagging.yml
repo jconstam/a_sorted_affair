@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: oprypin/find-latest-tag@v1
         with:
-          repository: context.repo.repo
+          repository: jconstam/a_sorted_affair
           releases-only: true
         id: octokit
       - name: Testing
