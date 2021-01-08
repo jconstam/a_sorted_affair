@@ -22,7 +22,6 @@ jobs:
       - name: Testing
         run: |
           echo "New tag: $NEW_TAG"
-          echo "New tag: ${{ NEW_TAG }}"
       # - name: Create Release
       #   id: create_release
       #   uses: actions/create-release@latest
