@@ -28,6 +28,7 @@ jobs:
         with:
           tag_name: ${{ steps.gen_tag.outputs.NEW_TAG }}
           release_name: Release ${{ steps.gen_tag.outputs.NEW_TAG }}
+          commitish: $GITHUB_SHA
           body: |
             Release version ${{ steps.gen_tag.outputs.NEW_TAG }}
           draft: false
