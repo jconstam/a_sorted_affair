@@ -25,10 +25,10 @@ jobs:
           github-token: ${{ github.token }}
           script: |
             github.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: "refs/tags/$NEW_TAG",
-              sha: context.sha
+              owner: $GITHUB_ACTOR,
+              repo: $GITHUB_REPOSITORY,
+              ref: "refs/tags/" + $NEW_TAG,
+              sha: $GITHUB_SHA
             })
     # - name: Tag commit with version
     #   run: |
