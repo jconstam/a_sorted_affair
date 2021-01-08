@@ -15,21 +15,22 @@ jobs:
           repository: jconstam/a_sorted_affair
           releases-only: false
         id: octokit
-      - name: Get New Tag
+      - name: Get Variables
         run: |
           CURR_TAG=${{ steps.octokit.outputs.tag }}
-          echo ::set-output name=NEW_TAG::$((CURR_TAG+1))
-        id: gen_tag
+          echo ::set-output name=TAG_NAME::$((CURR_TAG+1))
+          echo ::set-output name=COMMIT_SHA::$GITHUB_SHA
+        id: gen_vars
       - name: Create Release
         id: create_release
         uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.gen_tag.outputs.NEW_TAG }}
-          release_name: Release ${{ steps.gen_tag.outputs.NEW_TAG }}
-          commitish: $GITHUB_SHA
+          tag_name: ${{ steps.gen_vars.outputs.TAG_NAME }}
+          release_name: Release ${{ steps.gen_vars.outputs.TAG_NAME }}
+          commitish: $${{ steps.gen_vars.outputs.COMMIT_SHA }}
           body: |
-            Release version ${{ steps.gen_tag.outputs.NEW_TAG }}
+            Release version ${{ steps.gen_vars.outputs.TAG_NAME }}
           draft: false
           prerelease: false
