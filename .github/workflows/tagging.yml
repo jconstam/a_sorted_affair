@@ -18,7 +18,7 @@ jobs:
       - name: Get New Tag
         run: |
           CURR_TAG=${{ steps.octokit.outputs.tag }}
-          echo ::set-output name=NEW_TAG::$((LAST+1))
+          echo ::set-output name=NEW_TAG::$((CURR_TAG+1))
         id: gen_tag
       - name: Create Release
         id: create_release
