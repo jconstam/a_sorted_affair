@@ -16,11 +16,11 @@ jobs:
           releases-only: true
         id: octokit
       - name: Testing
-          run: |
-            LAST=${{ steps.octokit.outputs.tag }}
-            NEXT=$((LAST+1))
-            echo "Previous version: ${LAST}"
-            echo "New version:      ${NEXT}"
+        run: |
+          LAST=${{ steps.octokit.outputs.tag }}
+          NEXT=$((LAST+1))
+          echo "Previous version: ${LAST}"
+          echo "New version:      ${NEXT}"
 
       # - name: Create tag
       #   uses: actions/github-script@v3
