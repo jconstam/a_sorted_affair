@@ -15,24 +15,21 @@ jobs:
           repository: jconstam/a_sorted_affair
           releases-only: false
         id: octokit
-      - name: Testing
+      - name: Get New Tag
         run: |
-          LAST=${{ steps.octokit.outputs.tag }}
-          NEXT=$((LAST+1))
-          echo "Previous version: ${LAST}"
-          echo "New version:      ${NEXT}"
-
-      # - name: Create tag
-      #   uses: actions/github-script@v3
-      #   with:
-      #     github-token: ${{ github.token }}
-      #     script: |
-      #       github.git.createRef({
-      #         owner: context.repo.owner,
-      #         repo: context.repo.repo,
-      #         ref: "refs/tags/tagname",
-      #         sha: context.sha
-      #       })
+          CURR_TAG=${{ steps.octokit.outputs.tag }}
+          echo "NEW_TAG=$((LAST+1))" >> $GITHUB_ENV
+      - name: Create tag
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            github.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: "refs/tags/$NEW_TAG",
+              sha: context.sha
+            })
     # - name: Tag commit with version
     #   run: |
     #     LAST=$(git describe --abbrev=0)
