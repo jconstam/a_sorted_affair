@@ -10,12 +10,35 @@ jobs:
   tag:
     runs-on: ubuntu-latest
     steps:
-    - name: Tag commit with version
-      run: |
-        LAST=$(git describe --abbrev=0)
-        NEXT=$((LAST+1))
+      - uses: oprypin/find-latest-tag@v1
+        with:
+          repository: context.repo.repo
+          releases-only: true
+        id: octokit
+      - name: Testing
+          run: |
+            LAST=${{ steps.octokit.outputs.tag }}
+            NEXT=$((LAST+1))
+            echo "Previous version: ${LAST}"
+            echo "New version:      ${NEXT}"
 
-        echo "Previous version: ${LAST}"
-        echo "New version:      ${NEXT}"
-        
-        bash scripts/tag.sh
+      # - name: Create tag
+      #   uses: actions/github-script@v3
+      #   with:
+      #     github-token: ${{ github.token }}
+      #     script: |
+      #       github.git.createRef({
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         ref: "refs/tags/tagname",
+      #         sha: context.sha
+      #       })
+    # - name: Tag commit with version
+    #   run: |
+    #     LAST=$(git describe --abbrev=0)
+    #     NEXT=$((LAST+1))
+
+    #     echo "Previous version: ${LAST}"
+    #     echo "New version:      ${NEXT}"
+
+    #     bash scripts/tag.sh
