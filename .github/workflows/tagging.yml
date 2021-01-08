@@ -10,5 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Tag commit with version
       run: |
         bash scripts/tag.sh
