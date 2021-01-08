@@ -10,9 +10,12 @@ jobs:
   tag:
     runs-on: ubuntu-latest
     steps:
-    - name: Install dependencies
-      run: |
-        sudo apt-get install git -y
     - name: Tag commit with version
       run: |
+        LAST=$(git describe --abbrev=0)
+        NEXT=$((LAST+1))
+
+        echo "Previous version: ${LAST}"
+        echo "New version:      ${NEXT}"
+        
         bash scripts/tag.sh
