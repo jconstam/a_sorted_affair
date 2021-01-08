@@ -19,24 +19,19 @@ jobs:
         run: |
           CURR_TAG=${{ steps.octokit.outputs.tag }}
           echo "NEW_TAG=$((LAST+1))" >> $GITHUB_ENV
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: $NEW_TAG
-          release_name: Release $NEW_TAG
-          body: |
-            Release version $NEW_TAG
-          draft: false
-          prerelease: false
-    # - name: Tag commit with version
-    #   run: |
-    #     LAST=$(git describe --abbrev=0)
-    #     NEXT=$((LAST+1))
-
-    #     echo "Previous version: ${LAST}"
-    #     echo "New version:      ${NEXT}"
-
-    #     bash scripts/tag.sh
+      - name: Testing
+        run: |
+          echo "New tag: $NEW_TAG"
+          echo "New tag: ${{ NEW_TAG }}"
+      # - name: Create Release
+      #   id: create_release
+      #   uses: actions/create-release@latest
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: ${{ NEW_TAG }}
+      #     release_name: Release ${{ NEW_TAG }}
+      #     body: |
+      #       Release version ${{ NEW_TAG }}
+      #     draft: false
+      #     prerelease: false
