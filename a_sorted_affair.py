@@ -15,26 +15,30 @@ from sorters.selection import selection_sort
 from sorters.bubble import bubble_sort
 from sorters.merge import merge_sort
 from sorters.quick import quick_sort
+from sorters.radix import radix_sort
 
 INSERT_NAME = 'Insertion'
 SELECT_NAME = 'Selection'
 BUBBLE_NAME = 'Bubble'
 MERGE_NAME = 'Merge'
 QUICK_NAME = 'Quick'
+RADIX_NAME = 'Radix'
 
 short_names = {
     INSERT_NAME: ['ins', 'insert', 'insertion'],
     SELECT_NAME: ['sel', 'select', 'selection'],
     BUBBLE_NAME: ['bub', 'bubble'],
     MERGE_NAME: ['merge'],
-    QUICK_NAME: ['quick']
+    QUICK_NAME: ['quick'],
+    RADIX_NAME: ['radix']
 }
 alg_classes = {
     INSERT_NAME: insertion_sort,
     SELECT_NAME: selection_sort,
     BUBBLE_NAME: bubble_sort,
     MERGE_NAME: merge_sort,
-    QUICK_NAME: quick_sort
+    QUICK_NAME: quick_sort,
+    RADIX_NAME: radix_sort
 }
 
 

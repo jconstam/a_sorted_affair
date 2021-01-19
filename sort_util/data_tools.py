@@ -31,6 +31,10 @@ class data_store:
         self.__check_loaded()
         return len(self.__data)
 
+    def max(self) -> int:
+        self.__check_loaded()
+        return max(self.__data)
+
     def sortedness(self) -> float:
         inversions = 0
         for i in range(len(self.__data) - 1):
