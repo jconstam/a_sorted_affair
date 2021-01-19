@@ -18,8 +18,9 @@ jobs:
       - name: Get Variables
         run: |
           CURR_TAG=${{ steps.octokit.outputs.tag }}
+          CURR_SHA=$(git rev-parse --short HEAD)
           echo ::set-output name=TAG_NAME::$((CURR_TAG+1))
-          echo ::set-output name=COMMIT_SHA::$(git rev-parse --short HEAD)
+          echo ::set-output name=COMMIT_SHA::$CURR_SHA
         id: gen_vars
       - name: Create Release
         id: create_release
