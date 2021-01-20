@@ -3,7 +3,7 @@ name: Generate videos
 on:
   push:
     tags:
-      - *
+      - '**'
 
 jobs:
   generate:
