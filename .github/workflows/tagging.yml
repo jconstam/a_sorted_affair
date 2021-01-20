@@ -18,7 +18,7 @@ jobs:
         run: |
           CURR_TAG=${{ steps.octokit.outputs.tag }}
           echo ::set-output name=TAG_NAME::$((CURR_TAG+1))
-          CURR_SHA=${{ github.event.pull_request.head.sha }}
+          CURR_SHA=${{ github.event.push.after }}
           echo ::set-output name=COMMIT_SHA::$CURR_SHA
         id: gen_vars
       - name: Create Release
