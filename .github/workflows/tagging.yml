@@ -13,7 +13,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: Checkout
         run: |
-          git checkout $GITHUB_REF
+          raw=$(git branch -r --contains ${{ github.ref }})
+          branch=${raw/origin\/}
+          git checkout $branch
       - uses: oprypin/find-latest-tag@v1
         with:
           repository: jconstam/a_sorted_affair
