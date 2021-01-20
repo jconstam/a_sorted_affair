@@ -11,11 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Checkout
-        run: |
-          raw=$(git branch -r --contains ${{ github.ref }})
-          branch=${raw/origin\/}
-          git checkout $branch
       - uses: oprypin/find-latest-tag@v1
         with:
           repository: jconstam/a_sorted_affair
@@ -25,7 +20,7 @@ jobs:
         run: |
           CURR_TAG=${{ steps.octokit.outputs.tag }}
           echo ::set-output name=TAG_NAME::$((CURR_TAG+1))
-          CURR_SHA=$(git rev-parse HEAD)
+          CURR_SHA=${{ github.event.pull_request.head.sha }}
           echo ::set-output name=COMMIT_SHA::$CURR_SHA
         id: gen_vars
       - name: Create Release
