@@ -20,8 +20,8 @@ jobs:
         run: |
           CURR_TAG=${{ steps.octokit.outputs.tag }}
           echo ::set-output name=TAG_NAME::$((CURR_TAG+1))
-          CURR_SHA=$(git rev-parse HEAD)
-          echo ::set-output name=COMMIT_SHA::$CURR_SHA
+          # CURR_SHA=$(git rev-parse HEAD)
+          # echo ::set-output name=COMMIT_SHA::$CURR_SHA
         id: gen_vars
       - name: Create Release
         id: create_release
@@ -31,7 +31,7 @@ jobs:
         with:
           tag_name: ${{ steps.gen_vars.outputs.TAG_NAME }}
           release_name: Release ${{ steps.gen_vars.outputs.TAG_NAME }}
-          commitish: $${{ steps.gen_vars.outputs.COMMIT_SHA }}
+          commitish: $${{ github.sha }}
           body: |
             Release version ${{ steps.gen_vars.outputs.TAG_NAME }}
           draft: false
