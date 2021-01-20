@@ -31,7 +31,7 @@ jobs:
         with:
           tag_name: ${{ steps.gen_vars.outputs.TAG_NAME }}
           release_name: Release ${{ steps.gen_vars.outputs.TAG_NAME }}
-          commitish: ${{ steps.gen_vars.outputs.CURR_SHA }}
+          commitish: ${{ steps.gen_vars.outputs.COMMIT_SHA }}
           body: |
             Release version ${{ steps.gen_vars.outputs.TAG_NAME }}
           draft: false
