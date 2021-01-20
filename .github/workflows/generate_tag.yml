@@ -1,13 +1,12 @@
-name: Run unit tests
+name: Generate and publish videos
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    tags:
+      - '**'
 
 jobs:
-  unit_test:
+  generate_and_publish:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -15,11 +14,15 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.9
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install ffmpeg -y
     - name: Install python dependencies
       run: |
         python -m pip install --upgrade pip
         pip install pytest
         pip install -r requirements.txt
-    - name: Test with pytest
+    - name: Run
       run: |
-        python3 -m pytest
+        python3 a_sorted_affair.py -s 10000 all
