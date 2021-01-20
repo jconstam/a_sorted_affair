@@ -1,4 +1,4 @@
-name: Generate videos
+name: Generate and publish videos
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - '**'
 
 jobs:
-  generate:
+  generate_and_publish:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
