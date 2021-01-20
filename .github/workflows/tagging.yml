@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Checkout
+        run: |
+          git checkout ${{ github.ref }}
       - uses: oprypin/find-latest-tag@v1
         with:
           repository: jconstam/a_sorted_affair
@@ -20,8 +23,8 @@ jobs:
         run: |
           CURR_TAG=${{ steps.octokit.outputs.tag }}
           echo ::set-output name=TAG_NAME::$((CURR_TAG+1))
-          # CURR_SHA=$(git rev-parse HEAD)
-          # echo ::set-output name=COMMIT_SHA::$CURR_SHA
+          CURR_SHA=$(git rev-parse HEAD)
+          echo ::set-output name=COMMIT_SHA::$CURR_SHA
         id: gen_vars
       - name: Create Release
         id: create_release
@@ -31,7 +34,7 @@ jobs:
         with:
           tag_name: ${{ steps.gen_vars.outputs.TAG_NAME }}
           release_name: Release ${{ steps.gen_vars.outputs.TAG_NAME }}
-          commitish: $${{ github.sha }}
+          commitish: ${{ steps.gen_vars.outputs.CURR_SHA }}
           body: |
             Release version ${{ steps.gen_vars.outputs.TAG_NAME }}
           draft: false
