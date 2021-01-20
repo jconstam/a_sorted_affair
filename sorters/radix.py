@@ -9,10 +9,12 @@ from sort_util.data_tools import data_store
 class radix_sort(sort_base):
     def __init__(self) -> None:
         super().__init__()
-        self.draw_counter = 0
 
     def name(self) -> str:
         return 'Radix'
+
+    def frame_frequency(self) -> int:
+        return 10
 
     def _do_sort(self, data: data_store) -> None:
         max = data.max()
@@ -34,7 +36,4 @@ class radix_sort(sort_base):
             if self.is_greater_than(data, exp, i, i + 1):
                 data.swap(i, i + 1)
                 changed = True
-        self.draw_counter += 1
-        if self.draw_counter % 10 == 0:
-            data.draw(self.name())
         return changed

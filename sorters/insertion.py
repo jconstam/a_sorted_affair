@@ -11,6 +11,9 @@ class insertion_sort(sort_base):
     def name(self) -> str:
         return 'Insertion'
 
+    def frame_frequency(self) -> int:
+        return 10
+
     def _do_sort(self, data: data_store) -> None:
         for i in range(1, data.size()):
             src_index = i
@@ -18,4 +21,3 @@ class insertion_sort(sort_base):
                 if data.is_less_than(src_index, j):
                     data.move(src_index, j)
                     break
-            data.draw(self.name())
