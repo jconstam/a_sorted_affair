@@ -10,6 +10,9 @@ jobs:
   tag:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
       - uses: oprypin/find-latest-tag@v1
         with:
           repository: jconstam/a_sorted_affair
@@ -18,8 +21,8 @@ jobs:
       - name: Get Variables
         run: |
           CURR_TAG=${{ steps.octokit.outputs.tag }}
-          CURR_SHA=$(git rev-parse --short HEAD)
           echo ::set-output name=TAG_NAME::$((CURR_TAG+1))
+          CURR_SHA=$(git rev-parse --short HEAD)
           echo ::set-output name=COMMIT_SHA::$CURR_SHA
         id: gen_vars
       - name: Create Release
