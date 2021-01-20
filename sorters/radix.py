@@ -14,7 +14,7 @@ class radix_sort(sort_base):
         return 'Radix'
 
     def frame_frequency(self) -> int:
-        return 10
+        return 1300
 
     def _do_sort(self, data: data_store) -> None:
         max = data.max()

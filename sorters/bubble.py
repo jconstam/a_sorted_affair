@@ -12,7 +12,7 @@ class bubble_sort(sort_base):
         return 'Bubble'
 
     def frame_frequency(self) -> int:
-        return 10
+        return 500
 
     def _do_sort(self, data: data_store) -> None:
         sorted = False
