@@ -15,8 +15,7 @@ jobs:
         python-version: 3.9
     - name: Install system dependencies
       run: |
-        sudo apt-get update
-        sudo apt-get install ffmpeg -y
+        bash setup.sh
     - name: Install python dependencies
       run: |
         python -m pip install --upgrade pip
