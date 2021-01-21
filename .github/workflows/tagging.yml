@@ -25,7 +25,7 @@ jobs:
         id: create_release
         uses: actions/create-release@latest
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT_FOR_TAGGING }}
         with:
           tag_name: ${{ steps.gen_vars.outputs.TAG_NAME }}
           release_name: Release ${{ steps.gen_vars.outputs.TAG_NAME }}
