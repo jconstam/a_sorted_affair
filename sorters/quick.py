@@ -14,7 +14,7 @@ class quick_sort(sort_base):
         return 'Quick'
 
     def frame_frequency(self) -> int:
-        return 13
+        return 16
 
     def _do_sort(self, data: data_store) -> None:
         self.__quick_sort(data, 0, data.size() - 1)
