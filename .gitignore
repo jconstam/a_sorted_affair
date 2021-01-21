@@ -130,3 +130,6 @@ dmypy.json
 
 # Output folder
 output/
+
+# Super secret
+client_secrets.json
