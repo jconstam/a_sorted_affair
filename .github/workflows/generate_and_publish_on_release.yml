@@ -1,8 +1,6 @@
 name: Generate and publish videos
 
-on:
-  release:
-    types: [released]
+on: [release]
 
 jobs:
   generate_and_publish:
