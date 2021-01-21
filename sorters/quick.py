@@ -9,10 +9,12 @@ from sort_util.data_tools import data_store
 class quick_sort(sort_base):
     def __init__(self) -> None:
         super().__init__()
-        self.draw_counter = 0
 
     def name(self) -> str:
         return 'Quick'
+
+    def frame_frequency(self) -> int:
+        return 16
 
     def _do_sort(self, data: data_store) -> None:
         self.__quick_sort(data, 0, data.size() - 1)
@@ -33,9 +35,4 @@ class quick_sort(sort_base):
             if data.is_less_than(j, pivot_index):
                 data.move(j, pivot_index)
                 pivot_index += 1
-
-                self.draw_counter += 1
-                if self.draw_counter % 10 == 0:
-                    data.draw(self.name())
-        data.draw(self.name())
         return pivot_index

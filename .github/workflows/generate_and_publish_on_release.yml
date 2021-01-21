@@ -1,9 +1,8 @@
 name: Generate and publish videos
 
 on:
-  push:
-    tags:
-      - '**'
+  release:
+    types: [released]
 
 jobs:
   generate_and_publish:

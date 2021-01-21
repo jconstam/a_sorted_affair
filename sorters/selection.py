@@ -11,6 +11,9 @@ class selection_sort(sort_base):
     def name(self) -> str:
         return 'Selection'
 
+    def frame_frequency(self) -> int:
+        return 2
+
     def _do_sort(self, data: data_store) -> None:
         for i in range(data.size()):
             min_index = i
@@ -19,4 +22,3 @@ class selection_sort(sort_base):
                     min_index = j
             if not i == min_index:
                 data.swap(min_index, i)
-            data.draw(self.name())

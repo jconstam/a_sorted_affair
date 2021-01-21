@@ -13,6 +13,10 @@ class data_store:
         self.__data = None
         self.__drawer = drawer
         self.__video = video
+        self.__name = ''
+        self.__frame_counter = 0
+        self.__ticker = 0
+        self.__frame_frequency = 1
         self.__reset_stats()
 
     def __reset_stats(self) -> None:
@@ -55,8 +59,18 @@ class data_store:
         self.accesses = self.accesses + 1
         return self.__data[key]
 
-    def draw(self, name) -> None:
-        self.__video.write(self.__drawer.draw(self, name))
+    def init(self, name: str, frame_freq: int) -> None:
+        self.__name = name
+        self.__frame_frequency = frame_freq
+
+    def draw(self, force: bool = False) -> None:
+        if not force:
+            self.__ticker += 1
+            if self.__ticker % self.__frame_frequency != 0:
+                return
+
+        self.__frame_counter += 1
+        self.__video.write(self.__drawer.draw(self, self.__name))
 
     def convert(self, in_file: str, out_file: str) -> None:
         if os.path.exists(out_file):
@@ -76,6 +90,7 @@ class data_store:
         self.__data[index1] = self.__data[index2]
         self.__data[index2] = temp
         self.swaps = self.swaps + 1
+        self.draw()
 
     def move(self, index_source: int, index_dest: int) -> None:
         self.__check_loaded()
@@ -83,7 +98,7 @@ class data_store:
         del self.__data[index_source]
         self.__data.insert(index_dest, temp)
         self.moves = self.moves + 1
-
+        self.draw()
 
     def is_less_than(self, index1: int, index2: int) -> bool:
         self.__check_loaded()

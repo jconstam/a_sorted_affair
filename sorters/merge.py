@@ -7,10 +7,12 @@ from sort_util.data_tools import data_store
 class merge_sort(sort_base):
     def __init__(self) -> None:
         super().__init__()
-        self.draw_counter = 0
 
     def name(self) -> str:
         return 'Merge'
+
+    def frame_frequency(self) -> int:
+        return 11
 
     def _do_sort(self, data: data_store) -> None:
         self.__merge_sort(data, 0, data.size() - 1)
@@ -34,7 +36,3 @@ class merge_sort(sort_base):
                 start += 1
                 mid += 1
                 start2 += 1
-
-                self.draw_counter += 1
-                if self.draw_counter % 4 == 0:
-                    data.draw(self.name())
