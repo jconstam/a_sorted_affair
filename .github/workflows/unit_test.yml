@@ -22,9 +22,5 @@ jobs:
         pip install -r requirements.txt
     - name: Test with pytest
       run: |
-        pytest --cov=sorters --cov=sort_util
-    - name: Coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        path-to-lcov: .coverage
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        coverage run --source=sorters --source=sort_util -m pytest tests/
+        coveralls
