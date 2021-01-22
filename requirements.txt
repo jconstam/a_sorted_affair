@@ -1,2 +1,6 @@
+pytest
 pillow
+pyyaml
+coveralls
+pytest-cov
 opencv-python
