@@ -8,12 +8,15 @@ from PIL import Image, ImageDraw, ImageFont
 
 class draw_image:
     def __init__(self, width, height, size) -> None:
-        self.width = width
+        self.size = size
+        self.bar_width = int(width / size)
+        self.bar_height_scaler = height / size
+        self.width = self.bar_width * self.size
         self.height = height
         self.font_size = int(height / 50)
-        self.size = size
-        self.bar_width = self.width / self.size
-        self.bar_height_scaler = self.height / self.size
+
+    def get_image_size(self):
+        return (self.width, self.height)
 
     def __write_text(self, drawer, line, field, value):
         font = ImageFont.truetype(font='FreeMono.ttf', size=self.font_size)
@@ -23,19 +26,20 @@ class draw_image:
 
     def __get_color(self, value: int):
         vectors = [
-            [(0, 0, 255), (0, 255, 255)],
-            [(0, 255, 255), (0, 255, 0)],
-            [(0, 255, 0), (255, 255, 0)],
-            [(255, 255, 0), (255, 0, 0)],
-            [(255, 0, 0), (255, 0, 255)],
+            (0, 0, 255),
+            (0, 255, 255),
+            (0, 255, 0),
+            (255, 255, 0),
+            (255, 0, 0),
+            (255, 0, 255)
         ]
 
-        value_scaled = (value / self.size) * len(vectors)
+        value_scaled = (value / self.size) * (len(vectors) - 1)
         value_idx = int(value_scaled)
         value_frac = value_scaled - value_idx
 
-        b_start, g_start, r_start = vectors[value_idx][0]
-        b_end, g_end, r_end = vectors[value_idx][1]
+        b_start, g_start, r_start = vectors[value_idx]
+        b_end, g_end, r_end = vectors[value_idx + 1]
 
         blue = int(((b_end - b_start) * value_frac) + b_start)
         green = int(((g_end - g_start) * value_frac) + g_start)
@@ -49,10 +53,10 @@ class draw_image:
         drawer = ImageDraw.Draw(img)
 
         for i in range(self.size):
-            start_x = (i + 0.5) * self.bar_width
+            start_x = int((i + 0.5) * self.bar_width)
             start_y = self.height
             end_x = start_x
-            end_y = self.height - (data[i] * self.bar_height_scaler)
+            end_y = int(self.height - (data[i] * self.bar_height_scaler))
             drawer.line((start_x, start_y, end_x, end_y),
                         fill=self.__get_color(data[i]), width=int(self.bar_width))
 
