@@ -18,11 +18,34 @@ class draw_image:
     def __write_text(self, drawer, line, field, value):
         font = ImageFont.truetype(font='FreeMono.ttf', size=self.font_size)
         location = (self.font_size / 2, (line + 0.5) * self.font_size)
-        drawer.text(location, '{:20s} {}'.format('{}:'.format(field), value), font=font, fill=(0, 0, 255))
+        drawer.text(location, '{:20s} {}'.format('{}:'.format(
+            field), value), font=font, fill=(255, 255, 255))
+
+    def __get_color(self, value: int):
+        vectors = [
+            [(0, 0, 255), (0, 255, 255)],
+            [(0, 255, 255), (0, 255, 0)],
+            [(0, 255, 0), (255, 255, 0)],
+            [(255, 255, 0), (255, 0, 0)],
+            [(255, 0, 0), (255, 0, 255)],
+        ]
+
+        value_scaled = (value / self.size) * len(vectors)
+        value_idx = int(value_scaled)
+        value_frac = value_scaled - value_idx
+
+        b_start, g_start, r_start = vectors[value_idx][0]
+        b_end, g_end, r_end = vectors[value_idx][1]
+
+        blue = int(((b_end - b_start) * value_frac) + b_start)
+        green = int(((g_end - g_start) * value_frac) + g_start)
+        red = int(((r_end - r_start) * value_frac) + r_start)
+
+        return (blue, green, red)
 
 
     def draw(self, data, name: str) -> Any:
-        img = Image.new('RGB', (self.width, self.height), (255, 255, 255))
+        img = Image.new('RGB', (self.width, self.height), (0, 0, 0))
         drawer = ImageDraw.Draw(img)
 
         for i in range(self.size):
@@ -31,7 +54,7 @@ class draw_image:
             end_x = start_x
             end_y = self.height - (data[i] * self.bar_height_scaler)
             drawer.line((start_x, start_y, end_x, end_y),
-                      fill=(0, 0, 0), width=int(self.bar_width))
+                        fill=self.__get_color(data[i]), width=int(self.bar_width))
 
         self.__write_text(drawer, 0, 'Algorithm', name)
         self.__write_text(drawer, 1, 'Percent Sorted', '{:0.2f}%'.format(data.sortedness()))
