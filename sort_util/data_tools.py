@@ -70,7 +70,8 @@ class data_store:
                 return
 
         self.__frame_counter += 1
-        self.__video.write(self.__drawer.draw(self, self.__name))
+        if self.__drawer and self.__video:
+            self.__video.write(self.__drawer.draw(self, self.__name))
 
     def convert(self, in_file: str, out_file: str) -> None:
         if os.path.exists(out_file):
