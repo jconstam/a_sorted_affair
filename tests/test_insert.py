@@ -1,29 +1,14 @@
-import os
-import pytest
-
-from sort_util.data_tools import data_store
-from sorters.sort_base import sort_base
+from . import common
 from sorters.insertion import insertion_sort
 
-def setup_function():
-    pass
-
-def teardown_function():
-    pass
-
-
-def check_sorted(sorter: sort_base, data):
-    store = data_store(None, None)
-    store.load(data, "Test Data")
-    sorted_data = sorted(data.copy())
-    sorter.sort(store)
-
-    for i in range(len(sorted_data)):
-        assert sorted_data[i] == sorted_data[i]
+def test__name():
+    assert insertion_sort().name() == 'Insertion'
 
 def test__sort__presorted():
-    check_sorted(insertion_sort(), list(range(0, 100)))
-
+    common.test__sort__presorted(insertion_sort())
 
 def test__sort__reverse_sorted():
-    check_sorted(insertion_sort(), list(range(100, 0, -1)))
+    common.test__sort__reverse_sorted(insertion_sort())
+
+def test__sort__random():
+    common.test__sort__random(insertion_sort())
