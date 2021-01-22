@@ -1,4 +1,4 @@
 #!/bin/bash
 
 sudo apt-get update
-sudo apt-get install ffmpeg python3-pytest -y
+sudo apt-get install ffmpeg -y
