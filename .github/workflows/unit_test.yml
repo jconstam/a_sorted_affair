@@ -22,5 +22,5 @@ jobs:
         pip install -r requirements.txt
     - name: Test with pytest
       run: |
-        coverage run --source=sorters,sort_util -m pytest tests/
+        coverage run --source=sorters --omit=sorters/sort_base.py --branch -m pytest tests/
         coveralls
