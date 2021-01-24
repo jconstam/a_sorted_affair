@@ -50,7 +50,7 @@ def make_video(folder: str, sorter: sort_base, rand_data: list, width: int, heig
         folder, 'sorted_{}_{}.avi'.format(size, sorter.name()))
     final_file_name = os.path.join(
         folder, 'sorted_{}_{}.mkv'.format(size, sorter.name()))
-    video = VideoWriter(raw_file_name, VideoWriter_fourcc(*'PNG1'), float(fps),
+    video = VideoWriter(raw_file_name, VideoWriter_fourcc(*'mp4v'), float(fps),
                         drawer.get_image_size())
 
     store = data_store(drawer, video)
@@ -59,7 +59,7 @@ def make_video(folder: str, sorter: sort_base, rand_data: list, width: int, heig
 
     video.release()
 
-    store.convert(raw_file_name, final_file_name, width, height)
+    store.convert(raw_file_name, final_file_name)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(

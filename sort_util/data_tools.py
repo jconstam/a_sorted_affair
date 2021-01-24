@@ -73,14 +73,13 @@ class data_store:
         if self.__drawer and self.__video:
             self.__video.write(self.__drawer.draw(self, self.__name))
 
-    def convert(self, in_file: str, out_file: str, width: int, height: int) -> None:
+    def convert(self, in_file: str, out_file: str) -> None:
         if os.path.exists(out_file):
             os.remove(out_file)
         print('Converting {} to {}'.format(in_file, out_file))
         start = datetime.datetime.now()
         process = subprocess.Popen(
-            ['ffmpeg', '-i', in_file, '-filter:v','scale={}:{},setdar={}/{}'.format(width, height, width, height), '-c:a', 'copy', out_file], 
-            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            ['ffmpeg', '-i', in_file, out_file], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         process.wait()
         end = datetime.datetime.now()
         print('\tDone in {}'.format(end - start))
