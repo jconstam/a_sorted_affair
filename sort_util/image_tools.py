@@ -11,7 +11,7 @@ class draw_image:
         self.size = size
         self.bar_width = max(round(width / size), 1)
         self.bar_height_scaler = height / size
-        self.width = self.bar_width * self.size
+        self.width = width
         self.height = height
         self.font_size = int(height / 50)
 
@@ -50,7 +50,7 @@ class draw_image:
 
 
     def draw(self, data, name: str) -> Any:
-        img = Image.new('RGB', (self.width, self.height), (0, 0, 0))
+        img = Image.new('RGB', (self.bar_width * self.size, self.height), (0, 0, 0))
         drawer = ImageDraw.Draw(img)
 
         for i in range(self.size):
@@ -60,13 +60,16 @@ class draw_image:
             end_y = int(self.height - (data[i] * self.bar_height_scaler))
             drawer.line((start_x, start_y, end_x, end_y),
                         fill=self.__get_color(data[i]), width=int(self.bar_width))
+        
+        img = img.resize((self.width, self.height))
 
-        # self.__write_text(drawer, 0, 'Algorithm', name)
-        # self.__write_text(drawer, 1, 'Percent Sorted', '{:0.2f}%'.format(data.sortedness()))
-        # self.__write_text(drawer, 2, 'Array Size', data.size())
-        # self.__write_text(drawer, 3, 'Array Accesses', data.accesses)
-        # self.__write_text(drawer, 4, 'Array Swaps', data.swaps)
-        # self.__write_text(drawer, 5, 'Array Compares', data.compares)
-        # self.__write_text(drawer, 6, 'Array Moves', data.moves)
+        drawer = ImageDraw.Draw(img)
+        self.__write_text(drawer, 0, 'Algorithm', name)
+        self.__write_text(drawer, 1, 'Percent Sorted', '{:0.2f}%'.format(data.sortedness()))
+        self.__write_text(drawer, 2, 'Array Size', data.size())
+        self.__write_text(drawer, 3, 'Array Accesses', data.accesses)
+        self.__write_text(drawer, 4, 'Array Swaps', data.swaps)
+        self.__write_text(drawer, 5, 'Array Compares', data.compares)
+        self.__write_text(drawer, 6, 'Array Moves', data.moves)
 
         return numpy.array(img)
