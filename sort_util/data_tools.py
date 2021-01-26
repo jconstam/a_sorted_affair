@@ -87,9 +87,7 @@ class data_store:
 
     def swap(self, index1: int, index2: int, skip_draw=False) -> None:
         self.__check_loaded()
-        temp = self.__data[index1]
-        self.__data[index1] = self.__data[index2]
-        self.__data[index2] = temp
+        self.__data[index1], self.__data[index2] = self.__data[index2], self.__data[index1]
         self.swaps = self.swaps + 1
         self.draw()
 

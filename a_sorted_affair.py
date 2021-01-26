@@ -16,6 +16,7 @@ from sorters.bubble import bubble_sort
 from sorters.merge import merge_sort
 from sorters.quick import quick_sort
 from sorters.radix import radix_sort
+from sorters.heap import heap_sort
 
 INSERT_NAME = 'Insertion'
 SELECT_NAME = 'Selection'
@@ -23,6 +24,7 @@ BUBBLE_NAME = 'Bubble'
 MERGE_NAME = 'Merge'
 QUICK_NAME = 'Quick'
 RADIX_NAME = 'Radix'
+HEAP_NAME = 'Heap'
 
 short_names = {
     INSERT_NAME: ['ins', 'insert', 'insertion'],
@@ -30,7 +32,8 @@ short_names = {
     BUBBLE_NAME: ['bub', 'bubble'],
     MERGE_NAME: ['merge'],
     QUICK_NAME: ['quick'],
-    RADIX_NAME: ['radix']
+    RADIX_NAME: ['radix'],
+    HEAP_NAME: ['heap']
 }
 alg_classes = {
     INSERT_NAME: insertion_sort,
@@ -38,7 +41,8 @@ alg_classes = {
     BUBBLE_NAME: bubble_sort,
     MERGE_NAME: merge_sort,
     QUICK_NAME: quick_sort,
-    RADIX_NAME: radix_sort
+    RADIX_NAME: radix_sort,
+    HEAP_NAME: heap_sort
 }
 
 
