@@ -39,9 +39,9 @@ class sort:
         __HEAP_NAME: ['heap']
     }
     @staticmethod
-    def get_alg_classes() -> list:
+    def get_alg_classes() -> dict:
         return sort.__alg_classes
 
     @staticmethod
-    def get_alg_short_names() -> list:
+    def get_alg_short_names() -> dict:
         return sort.__short_names
