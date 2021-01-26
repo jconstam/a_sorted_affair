@@ -12,9 +12,11 @@ from sorters.quick import quick_sort
 from sorters.radix import radix_sort
 from sorters.heap import heap_sort
 
+NUMBER_OF_SORTERS = 7
 
 def test__sort_classes():
     alg_classes = sort.get_alg_classes()
+    assert len(alg_classes.keys()) == NUMBER_OF_SORTERS
     assert alg_classes['Insertion'] == insertion_sort
     assert alg_classes['Selection'] == selection_sort
     assert alg_classes['Bubble'] == bubble_sort
@@ -25,6 +27,7 @@ def test__sort_classes():
 
 def test__sort_short_names():
     alg_short_names = sort.get_alg_short_names()
+    assert len(alg_short_names.keys()) == NUMBER_OF_SORTERS
     assert alg_short_names['Insertion']
     assert alg_short_names['Selection']
     assert alg_short_names['Bubble']
