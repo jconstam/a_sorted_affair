@@ -8,6 +8,7 @@ from sorters.merge import merge_sort
 from sorters.quick import quick_sort
 from sorters.radix import radix_sort
 from sorters.heap import heap_sort
+from sorters.comb import comb_sort
 
 
 class sort:
@@ -18,6 +19,7 @@ class sort:
     __QUICK_NAME = 'Quick'
     __RADIX_NAME = 'Radix'
     __HEAP_NAME = 'Heap'
+    __COMB_NAME = 'Comb'
 
     __alg_classes = {
         __INSERT_NAME: insertion_sort,
@@ -26,7 +28,8 @@ class sort:
         __MERGE_NAME: merge_sort,
         __QUICK_NAME: quick_sort,
         __RADIX_NAME: radix_sort,
-        __HEAP_NAME: heap_sort
+        __HEAP_NAME: heap_sort,
+        __COMB_NAME: comb_sort
     }
 
     __short_names = {
@@ -36,7 +39,8 @@ class sort:
         __MERGE_NAME: ['merge'],
         __QUICK_NAME: ['quick'],
         __RADIX_NAME: ['radix'],
-        __HEAP_NAME: ['heap']
+        __HEAP_NAME: ['heap'],
+        __COMB_NAME: ['comb']
     }
     @staticmethod
     def get_alg_classes() -> dict:

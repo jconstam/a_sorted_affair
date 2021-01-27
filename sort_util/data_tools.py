@@ -40,11 +40,14 @@ class data_store:
         return max(self.__data)
 
     def sortedness(self) -> float:
-        inversions = 0
-        for i in range(len(self.__data) - 1):
-            if self.__data[i] > self.__data[i + 1]:
-                inversions += 1
-        sortedness = 100 - ((inversions / (len(self.__data) / 2)) * 100)
+        sum = 0
+        bin_size = min(10, len(self.__data))
+        count = len(self.__data) - bin_size
+        for i in range(count):
+            for j in range(i + 1, i + bin_size):
+                if self.__data[j] >= self.__data[i]:
+                    sum += 1
+        sortedness = (((sum / ((bin_size - 1) * count)) * 100) - 50) * 2
         return sortedness if sortedness > 0.0 else 0.0
 
     def load(self, data: list, name: str) -> None:

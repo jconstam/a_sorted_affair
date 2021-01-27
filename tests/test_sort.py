@@ -11,8 +11,9 @@ from sorters.merge import merge_sort
 from sorters.quick import quick_sort
 from sorters.radix import radix_sort
 from sorters.heap import heap_sort
+from sorters.comb import comb_sort
 
-NUMBER_OF_SORTERS = 7
+NUMBER_OF_SORTERS = 8
 
 def test__sort_classes():
     alg_classes = sort.get_alg_classes()
@@ -24,6 +25,7 @@ def test__sort_classes():
     assert alg_classes['Quick'] == quick_sort
     assert alg_classes['Radix'] == radix_sort
     assert alg_classes['Heap'] == heap_sort
+    assert alg_classes['Comb'] == comb_sort
 
 def test__sort_short_names():
     alg_short_names = sort.get_alg_short_names()
@@ -35,3 +37,4 @@ def test__sort_short_names():
     assert alg_short_names['Quick']
     assert alg_short_names['Radix']
     assert alg_short_names['Heap']
+    assert alg_short_names['Comb']
