@@ -12,7 +12,7 @@ class comb_sort(sort_base):
         return 'Comb'
 
     def frame_frequency(self) -> int:
-        return 9
+        return 13
 
     def _do_sort(self, data: data_store) -> None:
         size = data.size()

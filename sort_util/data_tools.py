@@ -59,8 +59,14 @@ class data_store:
 
     def __getitem__(self, key: int) -> int:
         self.__check_loaded()
-        self.accesses = self.accesses + 1
+        self.accesses += 1
         return self.__data[key]
+
+    def __setitem__(self, key: int, value: int) -> None:
+        self.__check_loaded()
+        self.accesses += 1
+        self.__data[key] = value
+        self.draw()
 
     def init(self, name: str, frame_freq: int) -> None:
         self.__name = name
@@ -91,7 +97,7 @@ class data_store:
     def swap(self, index1: int, index2: int, skip_draw=False) -> None:
         self.__check_loaded()
         self.__data[index1], self.__data[index2] = self.__data[index2], self.__data[index1]
-        self.swaps = self.swaps + 1
+        self.swaps += 1
         self.draw()
 
     def move(self, index_source: int, index_dest: int) -> None:
@@ -99,16 +105,16 @@ class data_store:
         temp = self.__data[index_source]
         del self.__data[index_source]
         self.__data.insert(index_dest, temp)
-        self.moves = self.moves + 1
+        self.moves += 1
         self.draw()
 
     def is_less_than(self, index1: int, index2: int) -> bool:
         self.__check_loaded()
-        self.compares = self.compares + 1
+        self.compares += 1
         return self.__data[index1] < self.__data[index2]
 
     def is_greater_than(self, index1: int, index2: int) -> bool:
         self.__check_loaded()
-        self.compares = self.compares + 1
+        self.compares += 1
         return self.__data[index1] > self.__data[index2]
 
