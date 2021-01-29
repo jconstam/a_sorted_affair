@@ -10,6 +10,9 @@ from sorters.radix import radix_sort
 from sorters.heap import heap_sort
 from sorters.comb import comb_sort
 from sorters.shell import shell_sort
+from sorters.pancake import pancake_sort
+from sorters.gnome import gnome_sort
+from sorters.cycle import cycle_sort
 
 
 class sort:
@@ -22,6 +25,9 @@ class sort:
     __HEAP_NAME = 'Heap'
     __COMB_NAME = 'Comb'
     __SHELL_NAME = 'Shell'
+    __PANCAKE_NAME = 'Pancake'
+    __GNOME_NAME = 'Gnome'
+    __CYCLE_NAME = 'Cycle'
 
     __alg_classes = {
         __INSERT_NAME: insertion_sort,
@@ -32,7 +38,10 @@ class sort:
         __RADIX_NAME: radix_sort,
         __HEAP_NAME: heap_sort,
         __COMB_NAME: comb_sort,
-        __SHELL_NAME: shell_sort
+        __SHELL_NAME: shell_sort,
+        __PANCAKE_NAME: pancake_sort,
+        __GNOME_NAME: gnome_sort,
+        __CYCLE_NAME: cycle_sort
     }
 
     __short_names = {
@@ -44,7 +53,10 @@ class sort:
         __RADIX_NAME: ['radix'],
         __HEAP_NAME: ['heap'],
         __COMB_NAME: ['comb'],
-        __SHELL_NAME: ['shell']
+        __SHELL_NAME: ['shell'],
+        __PANCAKE_NAME: ['pancake'],
+        __GNOME_NAME: ['gnome'],
+        __CYCLE_NAME: ['cycle']
     }
     @staticmethod
     def get_alg_classes() -> dict:

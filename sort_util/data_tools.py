@@ -108,6 +108,11 @@ class data_store:
         self.moves += 1
         self.draw()
 
+    def is_equal_to(self, index1: int, index2: int) -> bool:
+        self.__check_loaded()
+        self.compares += 1
+        return self.__data[index1] ==self.__data[index2]
+
     def is_less_than(self, index1: int, index2: int) -> bool:
         self.__check_loaded()
         self.compares += 1
@@ -117,4 +122,9 @@ class data_store:
         self.__check_loaded()
         self.compares += 1
         return self.__data[index1] > self.__data[index2]
+
+    def is_greater_than_or_equal(self, index1: int, index2: int) -> bool:
+        self.__check_loaded()
+        self.compares += 1
+        return self.__data[index1] >= self.__data[index2]
 

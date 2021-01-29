@@ -13,8 +13,11 @@ from sorters.radix import radix_sort
 from sorters.heap import heap_sort
 from sorters.comb import comb_sort
 from sorters.shell import shell_sort
+from sorters.pancake import pancake_sort
+from sorters.gnome import gnome_sort
+from sorters.cycle import cycle_sort
 
-NUMBER_OF_SORTERS = 9
+NUMBER_OF_SORTERS = 12
 
 def test__sort_classes():
     alg_classes = sort.get_alg_classes()
@@ -28,6 +31,9 @@ def test__sort_classes():
     assert alg_classes['Heap'] == heap_sort
     assert alg_classes['Comb'] == comb_sort
     assert alg_classes['Shell'] == shell_sort
+    assert alg_classes['Pancake'] == pancake_sort
+    assert alg_classes['Gnome'] == gnome_sort
+    assert alg_classes['Cycle'] == cycle_sort
 
 def test__sort_short_names():
     alg_short_names = sort.get_alg_short_names()
@@ -41,3 +47,6 @@ def test__sort_short_names():
     assert alg_short_names['Heap']
     assert alg_short_names['Comb']
     assert alg_short_names['Shell']
+    assert alg_short_names['Pancake']
+    assert alg_short_names['Gnome']
+    assert alg_short_names['Cycle']
