@@ -9,37 +9,8 @@ from cv2 import VideoWriter, VideoWriter_fourcc
 from sort_util.image_tools import draw_image
 from sort_util.data_tools import data_store
 
+from sorters.sort import sort
 from sorters.sort_base import sort_base
-from sorters.insertion import insertion_sort
-from sorters.selection import selection_sort
-from sorters.bubble import bubble_sort
-from sorters.merge import merge_sort
-from sorters.quick import quick_sort
-from sorters.radix import radix_sort
-
-INSERT_NAME = 'Insertion'
-SELECT_NAME = 'Selection'
-BUBBLE_NAME = 'Bubble'
-MERGE_NAME = 'Merge'
-QUICK_NAME = 'Quick'
-RADIX_NAME = 'Radix'
-
-short_names = {
-    INSERT_NAME: ['ins', 'insert', 'insertion'],
-    SELECT_NAME: ['sel', 'select', 'selection'],
-    BUBBLE_NAME: ['bub', 'bubble'],
-    MERGE_NAME: ['merge'],
-    QUICK_NAME: ['quick'],
-    RADIX_NAME: ['radix']
-}
-alg_classes = {
-    INSERT_NAME: insertion_sort,
-    SELECT_NAME: selection_sort,
-    BUBBLE_NAME: bubble_sort,
-    MERGE_NAME: merge_sort,
-    QUICK_NAME: quick_sort,
-    RADIX_NAME: radix_sort
-}
 
 
 def make_video(folder: str, sorter: sort_base, rand_data: list, width: int, height: int, fps: int) -> None:
@@ -86,13 +57,15 @@ if __name__ == '__main__':
     print('Output will be located in "{}"'.format(folder))
     print('Output will be {}x{} @ {}fps'.format(args.width, args.height, args.fps))
     sorters = []
+    alg_classes = sort.get_alg_classes()
+    alg_short_names = sort.get_alg_short_names()
     for alg in args.algorithms:
         if alg == 'all':
             for key, value in alg_classes.items():
                 print('Using sort algorithm "{}"'.format(key))
                 sorters.append(value())
             break
-        for key, value in short_names.items():
+        for key, value in alg_short_names.items():
             if alg.lower() in value:
                 print('Using sort algorithm "{}"'.format(key))
                 sorters.append(alg_classes[key]())

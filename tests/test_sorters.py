@@ -4,30 +4,8 @@ import pytest
 import random
 
 from sort_util.data_tools import data_store
-
+from sorters.sort import sort
 from sorters.sort_base import sort_base
-from sorters.insertion import insertion_sort
-from sorters.selection import selection_sort
-from sorters.bubble import bubble_sort
-from sorters.merge import merge_sort
-from sorters.quick import quick_sort
-from sorters.radix import radix_sort
-
-INSERT_NAME = 'Insertion'
-SELECT_NAME = 'Selection'
-BUBBLE_NAME = 'Bubble'
-MERGE_NAME = 'Merge'
-QUICK_NAME = 'Quick'
-RADIX_NAME = 'Radix'
-
-alg_classes = {
-    INSERT_NAME: insertion_sort,
-    SELECT_NAME: selection_sort,
-    BUBBLE_NAME: bubble_sort,
-    MERGE_NAME: merge_sort,
-    QUICK_NAME: quick_sort,
-    RADIX_NAME: radix_sort
-}
 
 
 normal_test_size = 100
@@ -44,6 +22,7 @@ def check_sorted(sorter: sort_base, data):
 
 
 def test__sorters():
+    alg_classes = sort.get_alg_classes()
     for alg_name, alg_class in alg_classes.items():
         # Test name
         assert alg_class().name() == alg_name
