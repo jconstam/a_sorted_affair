@@ -26,9 +26,10 @@ class cycle_sort(sort_base):
             if pos == cycle_start:
                 continue
 
-            while item == data[pos]:
-                pos += 1
-                data.swap(pos, cycle_start)
+            # Uncomment when there are repeated values
+            # while item == data[pos]:
+            #     pos += 1
+            #     data.swap(pos, cycle_start)
 
             while pos != cycle_start:
                 pos = cycle_start
@@ -36,7 +37,8 @@ class cycle_sort(sort_base):
                     if data.is_less_than(i, cycle_start):
                         pos += 1
 
-                while item == data[pos]:
-                    pos += 1
+                # Uncomment when there are repeated values
+                # while item == data[pos]:
+                #     pos += 1
                 data.swap(pos, cycle_start)
 
