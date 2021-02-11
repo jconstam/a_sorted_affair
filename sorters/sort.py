@@ -12,7 +12,6 @@ from sorters.comb import comb_sort
 from sorters.shell import shell_sort
 from sorters.pancake import pancake_sort
 from sorters.gnome import gnome_sort
-from sorters.cycle import cycle_sort
 
 
 class sort:
@@ -27,7 +26,6 @@ class sort:
     __SHELL_NAME = 'Shell'
     __PANCAKE_NAME = 'Pancake'
     __GNOME_NAME = 'Gnome'
-    __CYCLE_NAME = 'Cycle'
 
     __alg_classes = {
         __INSERT_NAME: insertion_sort,
@@ -40,8 +38,7 @@ class sort:
         __COMB_NAME: comb_sort,
         __SHELL_NAME: shell_sort,
         __PANCAKE_NAME: pancake_sort,
-        __GNOME_NAME: gnome_sort,
-        __CYCLE_NAME: cycle_sort
+        __GNOME_NAME: gnome_sort
     }
 
     __short_names = {
@@ -55,8 +52,7 @@ class sort:
         __COMB_NAME: ['comb'],
         __SHELL_NAME: ['shell'],
         __PANCAKE_NAME: ['pancake'],
-        __GNOME_NAME: ['gnome'],
-        __CYCLE_NAME: ['cycle']
+        __GNOME_NAME: ['gnome']
     }
     @staticmethod
     def get_alg_classes() -> dict:
