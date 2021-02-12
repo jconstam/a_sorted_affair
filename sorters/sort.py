@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-from sorters.sort_base import sort_base
 from sorters.insertion import insertion_sort
 from sorters.selection import selection_sort
 from sorters.bubble import bubble_sort
@@ -54,6 +53,7 @@ class sort:
         __PANCAKE_NAME: ['pancake'],
         __GNOME_NAME: ['gnome']
     }
+
     @staticmethod
     def get_alg_classes() -> dict:
         return sort.__alg_classes

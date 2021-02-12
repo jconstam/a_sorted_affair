@@ -36,4 +36,3 @@ class pancake_sort(sort_base):
             if data.is_greater_than(i, max_index):
                 max_index = i
         return max_index
-

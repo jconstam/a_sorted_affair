@@ -48,7 +48,6 @@ class draw_image:
 
         return (blue, green, red)
 
-
     def draw(self, data, name: str) -> Any:
         img = Image.new('RGB', (self.bar_width * self.size, self.height), (0, 0, 0))
         drawer = ImageDraw.Draw(img)
@@ -60,7 +59,7 @@ class draw_image:
             end_y = int(self.height - (data[i] * self.bar_height_scaler))
             drawer.line((start_x, start_y, end_x, end_y),
                         fill=self.__get_color(data[i]), width=int(self.bar_width))
-        
+
         img = img.resize((self.width, self.height))
 
         drawer = ImageDraw.Draw(img)

@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 
-import pytest
-
 from sorters.sort import sort
 
 from sorters.insertion import insertion_sort
@@ -18,6 +16,7 @@ from sorters.gnome import gnome_sort
 
 NUMBER_OF_SORTERS = 11
 
+
 def test__sort_classes():
     alg_classes = sort.get_alg_classes()
     assert len(alg_classes.keys()) == NUMBER_OF_SORTERS
@@ -32,6 +31,7 @@ def test__sort_classes():
     assert alg_classes['Shell'] == shell_sort
     assert alg_classes['Pancake'] == pancake_sort
     assert alg_classes['Gnome'] == gnome_sort
+
 
 def test__sort_short_names():
     alg_short_names = sort.get_alg_short_names()

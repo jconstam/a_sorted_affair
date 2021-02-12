@@ -23,4 +23,4 @@ jobs:
         pip install -r requirements.txt
     - name: Run
       run: |
-        bash generate.sh 10000
+        bash generate_all.sh 10000

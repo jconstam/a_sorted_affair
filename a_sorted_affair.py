@@ -15,6 +15,7 @@ from sort_util.data_tools import data_store
 from sorters.sort import sort
 from sorters.sort_base import sort_base
 
+
 class data_type(Enum):
     random = 1,
     reverse = 2,
@@ -25,6 +26,7 @@ class data_type(Enum):
     sin = 7,
     sin2 = 8,
     sin4 = 9
+
 
 data_types = {
     'random': data_type.random,
@@ -95,6 +97,7 @@ def get_data(data_type_name: str, size: int):
         return __get_data_sin__(size, 4)
     else:
         return None
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
