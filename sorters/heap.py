@@ -11,9 +11,6 @@ class heap_sort(sort_base):
     def name(self) -> str:
         return 'Heap'
 
-    def frame_frequency(self) -> int:
-        return 25
-
     def _do_sort(self, data: data_store) -> None:
         size = data.size()
         for i in range(size // 2 - 1, -1, -1):

@@ -11,9 +11,6 @@ class merge_sort(sort_base):
     def name(self) -> str:
         return 'Merge'
 
-    def frame_frequency(self) -> int:
-        return 11
-
     def _do_sort(self, data: data_store) -> None:
         self.__merge_sort(data, 0, data.size() - 1)
 

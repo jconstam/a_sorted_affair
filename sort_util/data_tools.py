@@ -16,8 +16,6 @@ class data_store:
         self.__video = video
         self.__name = ''
         self.__frame_counter = 0
-        self.__ticker = 0
-        self.__frame_frequency = 1
         self.__reset_stats()
 
     def __reset_stats(self) -> None:
@@ -51,12 +49,12 @@ class data_store:
         sortedness = (((sum / ((bin_size - 1) * count)) * 100) - 50) * 2
         return sortedness if sortedness > 0.0 else 0.0
 
-    def load(self, data: list, name: str) -> None:
+    def load(self, data: list) -> None:
         for value in data:
             assert type(value) is int, 'data must contain only ints'
         self.__data = data
         self.__reset_stats()
-        self.draw(name)
+        self.draw()
 
     def __getitem__(self, key: int) -> int:
         self.__check_loaded()
@@ -69,16 +67,10 @@ class data_store:
         self.__data[key] = value
         self.draw()
 
-    def init(self, name: str, frame_freq: int) -> None:
+    def init(self, name: str) -> None:
         self.__name = name
-        self.__frame_frequency = frame_freq
 
-    def draw(self, force: bool = False) -> None:
-        if not force:
-            self.__ticker += 1
-            if self.__ticker % self.__frame_frequency != 0:
-                return
-
+    def draw(self) -> None:
         self.__frame_counter += 1
         if self.__drawer and self.__video:
             self.__video.write(self.__drawer.draw(self, self.__name))

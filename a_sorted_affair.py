@@ -53,7 +53,7 @@ def make_video(folder: str, sorter: sort_base, data_type_name: str, data: list, 
                         drawer.get_image_size())
 
     store = data_store(drawer, video)
-    store.load(data, sorter.name())
+    store.load(data)
     sorter.sort(store)
 
     video.release()

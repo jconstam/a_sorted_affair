@@ -11,9 +11,6 @@ class pancake_sort(sort_base):
     def name(self) -> str:
         return 'Pancake'
 
-    def frame_frequency(self) -> int:
-        return 7000
-
     def _do_sort(self, data: data_store) -> None:
         curr_size = data.size()
         while curr_size > 1:

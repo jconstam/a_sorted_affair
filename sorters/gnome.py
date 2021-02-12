@@ -11,9 +11,6 @@ class gnome_sort(sort_base):
     def name(self) -> str:
         return 'Gnome'
 
-    def frame_frequency(self) -> int:
-        return 4600
-
     def _do_sort(self, data: data_store) -> None:
         index = 0
         while index < data.size():

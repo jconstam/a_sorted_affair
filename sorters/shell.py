@@ -11,9 +11,6 @@ class shell_sort(sort_base):
     def name(self) -> str:
         return 'Shell'
 
-    def frame_frequency(self) -> int:
-        return 55
-
     def _do_sort(self, data: data_store) -> None:
         n = data.size()
         interval = n // 2

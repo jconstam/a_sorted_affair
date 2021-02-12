@@ -11,9 +11,6 @@ class bubble_sort(sort_base):
     def name(self) -> str:
         return 'Bubble'
 
-    def frame_frequency(self) -> int:
-        return 5000
-
     def _do_sort(self, data: data_store) -> None:
         sorted = False
         while not sorted:
