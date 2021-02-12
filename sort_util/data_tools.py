@@ -8,6 +8,7 @@ import cv2
 
 from sort_util.image_tools import draw_image
 
+
 class data_store:
     def __init__(self, drawer: draw_image, video: cv2.VideoWriter) -> None:
         self.__data = None
@@ -111,7 +112,7 @@ class data_store:
     def is_equal_to(self, index1: int, index2: int) -> bool:
         self.__check_loaded()
         self.compares += 1
-        return self.__data[index1] ==self.__data[index2]
+        return self.__data[index1] == self.__data[index2]
 
     def is_less_than(self, index1: int, index2: int) -> bool:
         self.__check_loaded()
@@ -127,4 +128,3 @@ class data_store:
         self.__check_loaded()
         self.compares += 1
         return self.__data[index1] >= self.__data[index2]
-

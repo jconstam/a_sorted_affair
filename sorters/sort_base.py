@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import abc 
+import abc
 import datetime
 
 from sort_util.data_tools import data_store
@@ -30,4 +30,4 @@ class sort_base(abc.ABC):
         self._do_sort(data)
         end = datetime.datetime.now()
         print('\tDone in {}'.format(end - start))
-        data.draw(force = True)
+        data.draw(force=True)

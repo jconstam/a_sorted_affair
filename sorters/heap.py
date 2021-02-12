@@ -29,7 +29,7 @@ class heap_sort(sort_base):
 
         if left < size and data[largest] < data[left]:
             largest = left
-        
+
         if right < size and data[largest] < data[right]:
             largest = right
 

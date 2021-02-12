@@ -1,8 +1,11 @@
 #!/usr/bin/python3
 
 import os
+import math
 import random
 import argparse
+
+from enum import Enum
 
 from cv2 import VideoWriter, VideoWriter_fourcc
 
@@ -13,24 +16,88 @@ from sorters.sort import sort
 from sorters.sort_base import sort_base
 
 
-def make_video(folder: str, sorter: sort_base, rand_data: list, width: int, height: int, fps: int) -> None:
-    size = len(rand_data)
+class data_type(Enum):
+    random = 1,
+    reverse = 2,
+    saw4 = 3,
+    saw8 = 4,
+    saw4rev = 5,
+    saw8rev = 6,
+    sin = 7,
+    sin2 = 8,
+    sin4 = 9
+
+
+data_types = {
+    'random': data_type.random,
+    'reverse': data_type.reverse,
+    'saw4': data_type.saw4,
+    'saw8': data_type.saw8,
+    'saw4rev': data_type.saw4rev,
+    'saw8rev': data_type.saw8rev,
+    'sin': data_type.sin,
+    'sin2': data_type.sin2,
+    'sin4': data_type.sin4
+}
+
+
+def make_video(folder: str, sorter: sort_base, data_type_name: str, data: list, width: int, height: int, fps: int) -> None:
+    size = len(data)
 
     drawer = draw_image(width, height, size)
     raw_file_name = os.path.join(
-        folder, 'sorted_{}_{}.avi'.format(size, sorter.name()))
+        folder, '{}_{}_{}.avi'.format(sorter.name(), size, data_type_name))
     final_file_name = os.path.join(
-        folder, 'sorted_{}_{}.mkv'.format(size, sorter.name()))
+        folder, '{}_{}_{}.mkv'.format(sorter.name(), size, data_type_name))
     video = VideoWriter(raw_file_name, VideoWriter_fourcc(*'mp4v'), float(fps),
                         drawer.get_image_size())
 
     store = data_store(drawer, video)
-    store.load(rand_data, sorter.name())
+    store.load(data, sorter.name())
     sorter.sort(store)
 
     video.release()
 
     store.convert(raw_file_name, final_file_name)
+
+
+def __get_data_saw__(size: int, mult: int, reverse: bool):
+    raw = range(int(size / mult)) if not reverse else range(int(size / mult) - 1, -1, -1)
+    return list([x * mult for x in raw]) * mult
+
+
+def __get_data_sin__(size: int, mult: int):
+    data = []
+    for i in range(size):
+        data.append(int((size / 2) * (math.sin(mult * i / (size / (2 * math.pi))) + 1)))
+        if data[i] == size:
+            data[i] -= 1
+    return data
+
+
+def get_data(data_type_name: str, size: int):
+    data_type_val = data_types[data_type_name]
+    if data_type_val == data_type.random:
+        return random.sample(range(0, size), size)
+    elif data_type_val == data_type.reverse:
+        return list(range(size - 1, -1, -1))
+    elif data_type_val == data_type.saw4:
+        return __get_data_saw__(size, 4, False)
+    elif data_type_val == data_type.saw8:
+        return __get_data_saw__(size, 8, False)
+    elif data_type_val == data_type.saw4rev:
+        return __get_data_saw__(size, 4, True)
+    elif data_type_val == data_type.saw8rev:
+        return __get_data_saw__(size, 8, True)
+    elif data_type_val == data_type.sin:
+        return __get_data_sin__(size, 1)
+    elif data_type_val == data_type.sin2:
+        return __get_data_sin__(size, 2)
+    elif data_type_val == data_type.sin4:
+        return __get_data_sin__(size, 4)
+    else:
+        return None
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
@@ -45,6 +112,8 @@ if __name__ == '__main__':
                         default=1080, help='The height of the video in pixels')
     parser.add_argument('-f', '--fps', type=int,
                         default=60, help='The framerate of the video in frames per second')
+    parser.add_argument('-d', '--dataType', type=str,
+                        default='random', choices=data_types.keys(), help='The type of data to sort')
     parser.add_argument('algorithms', metavar='alg', type=str,
                         nargs='+', help='Sorting algorithms to run')
     args = parser.parse_args()
@@ -73,6 +142,6 @@ if __name__ == '__main__':
         else:
             raise Exception('Algorithm {} not found'.format(alg))
 
-    rand_data = random.sample(range(0, args.size), args.size)
+    data = get_data(args.dataType, args.size)
     for sorter in sorters:
-        make_video(folder, sorter, rand_data.copy(), args.width, args.height, args.fps)
+        make_video(folder, sorter, args.dataType, data.copy(), args.width, args.height, args.fps)

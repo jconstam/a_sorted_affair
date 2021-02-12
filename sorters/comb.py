@@ -18,7 +18,7 @@ class comb_sort(sort_base):
         size = data.size()
         gap = size
         swapped = True
-        while gap != 1 or swapped == True:
+        while gap != 1 or swapped:
             gap = self.get_next_gap(gap)
             swapped = False
             for i in range(0, size - gap):
@@ -29,4 +29,3 @@ class comb_sort(sort_base):
     def get_next_gap(self, gap):
         gap = int((gap * 10) / 13)
         return gap if gap > 1 else 1
-

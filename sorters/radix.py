@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 
-import math
-
 from sorters.sort_base import sort_base
 from sort_util.data_tools import data_store
 
