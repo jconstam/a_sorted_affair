@@ -36,8 +36,10 @@ def test__sorters():
         # Test reverse-sorted data store
         check_sorted(alg_class(), list(range(normal_test_size, 0, -1)))
         # Test randomly sorted data stores
-        for i in range(0, normal_test_size):
-            check_sorted(alg_class(), random.sample(
-                range(0, normal_test_size), normal_test_size))
+        for _ in range(0, normal_test_size):
+            check_sorted(alg_class(), random.sample(range(0, normal_test_size), normal_test_size))
+        # Test repeating values
+        for mult in range(2, 9):
+            check_sorted(alg_class(), list(range(int(normal_test_size / mult))) * mult)
         # Test big data store
         check_sorted(alg_class(), list(range(0, big_test_size)))
