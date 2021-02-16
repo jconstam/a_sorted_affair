@@ -70,7 +70,6 @@ class data_store:
         self.__data[key] = value
         if not skip_draw:
             self.draw()
-        
 
     def init(self, name: str) -> None:
         self.__name = name
