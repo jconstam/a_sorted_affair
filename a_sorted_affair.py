@@ -41,7 +41,7 @@ data_types = {
 }
 
 
-def make_video(folder: str, sorter: sort_base, data_type_name: str, data: list, width: int, height: int, fps: int) -> None:
+def make_video(folder: str, sorter: sort_base, data_type_name: str, data: list, width: int, height: int, fps: int, target_len: float) -> None:
     size = len(data)
 
     drawer = draw_image(width, height, size)
@@ -59,6 +59,7 @@ def make_video(folder: str, sorter: sort_base, data_type_name: str, data: list, 
     video.release()
 
     store.convert(raw_file_name, final_file_name)
+    store.adjust_length(final_file_name, target_len, fps)
 
 
 def __get_data_saw__(size: int, mult: int, reverse: bool):
@@ -112,6 +113,8 @@ if __name__ == '__main__':
                         default=1080, help='The height of the video in pixels')
     parser.add_argument('-f', '--fps', type=int,
                         default=60, help='The framerate of the video in frames per second')
+    parser.add_argument('-t', '--targetLength', type=float,
+                        default=30, help='The target length of the video in seconds')
     parser.add_argument('-d', '--dataType', type=str,
                         default='random', choices=data_types.keys(), help='The type of data to sort')
     parser.add_argument('algorithms', metavar='alg', type=str,
@@ -144,4 +147,4 @@ if __name__ == '__main__':
 
     data = get_data(args.dataType, args.size)
     for sorter in sorters:
-        make_video(folder, sorter, args.dataType, data.copy(), args.width, args.height, args.fps)
+        make_video(folder, sorter, args.dataType, data.copy(), args.width, args.height, args.fps, args.targetLength)

@@ -19,7 +19,8 @@ class shell_sort(sort_base):
                 temp = data[i]
                 j = i
                 while j >= interval and data[j - interval] > temp:
-                    data[j] = data[j - interval]
+                    data.set(j, data[j - interval], skip_draw=True)
+                    # data[j] = data[j - interval]
                     j -= interval
 
                 data[j] = temp

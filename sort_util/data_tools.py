@@ -62,10 +62,15 @@ class data_store:
         return self.__data[key]
 
     def __setitem__(self, key: int, value: int) -> None:
+        self.set(key, value)
+
+    def set(self, key: int, value: int, skip_draw: bool = False) -> None:
         self.__check_loaded()
         self.accesses += 1
         self.__data[key] = value
-        self.draw()
+        if not skip_draw:
+            self.draw()
+        
 
     def init(self, name: str) -> None:
         self.__name = name
@@ -80,8 +85,39 @@ class data_store:
             os.remove(out_file)
         print('Converting {} to {}'.format(in_file, out_file))
         start = datetime.datetime.now()
-        process = subprocess.Popen(
-            ['ffmpeg', '-i', in_file, out_file], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        process = subprocess.Popen(['ffmpeg', '-i', in_file, out_file], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        process.wait()
+        end = datetime.datetime.now()
+        print('\tDone in {}'.format(end - start))
+        os.remove(in_file)
+
+    def adjust_length(self, file: str, target_len: float, fps: int) -> None:
+        process = subprocess.Popen(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'default=noprint_wrappers=1:nokey=1', file],
+                                   stdout=subprocess.PIPE)
+        (length_bytes, _) = process.communicate()
+        orig_len = float(length_bytes.decode('utf-8'))
+        ratio = target_len / orig_len
+
+        filename, file_extension = os.path.splitext(file)
+        in_file = filename + '_old' + file_extension
+        os.rename(file, in_file)
+
+        print('Changing video length from {} to {} ({:.3f})'.format(orig_len, target_len, ratio))
+        start = datetime.datetime.now()
+        process = subprocess.Popen('ffmpeg -i {} -filter:v \"setpts={}*PTS\" {}'.format(in_file, ratio, file),
+                                   shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        process.wait()
+        end = datetime.datetime.now()
+        print('\tDone in {}'.format(end - start))
+        os.remove(in_file)
+
+        in_file = filename + '_old' + file_extension
+        os.rename(file, in_file)
+
+        print('Smoothing/interpolating video')
+        start = datetime.datetime.now()
+        process = subprocess.Popen('ffmpeg -i {} -filter:v \"minterpolate=\'mi_mode=mci:mc_mode=aobmc:vsbmc=1:fps={}\'\" {}'.format(in_file, fps, file),
+                                   shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         process.wait()
         end = datetime.datetime.now()
         print('\tDone in {}'.format(end - start))
@@ -91,7 +127,8 @@ class data_store:
         self.__check_loaded()
         self.__data[index1], self.__data[index2] = self.__data[index2], self.__data[index1]
         self.swaps += 1
-        self.draw()
+        if not skip_draw:
+            self.draw()
 
     def move(self, index_source: int, index_dest: int) -> None:
         self.__check_loaded()

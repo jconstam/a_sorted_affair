@@ -29,6 +29,7 @@ class radix_sort(sort_base):
         changed = False
         for i in range(0, data.size() - 1):
             if self.is_greater_than(data, exp, i, i + 1):
-                data.swap(i, i + 1)
+                data.swap(i, i + 1, skip_draw=True)
                 changed = True
+        data.draw()
         return changed

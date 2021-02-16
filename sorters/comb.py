@@ -11,18 +11,18 @@ class comb_sort(sort_base):
     def name(self) -> str:
         return 'Comb'
 
+    def __get_next_gap__(self, gap):
+        gap = int((gap * 10) / 13)
+        return gap if gap > 1 else 1
+
     def _do_sort(self, data: data_store) -> None:
         size = data.size()
         gap = size
         swapped = True
         while gap != 1 or swapped:
-            gap = self.get_next_gap(gap)
+            gap = self.__get_next_gap__(gap)
             swapped = False
             for i in range(0, size - gap):
                 if data[i] > data[i + gap]:
                     data.swap(i, i + gap)
                     swapped = True
-
-    def get_next_gap(self, gap):
-        gap = int((gap * 10) / 13)
-        return gap if gap > 1 else 1
