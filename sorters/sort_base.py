@@ -18,16 +18,12 @@ class sort_base(abc.ABC):
     def name(self) -> str:
         raise NotImplementedError("Must override name")
 
-    @abc.abstractmethod
-    def frame_frequency(self) -> int:
-        raise NotImplementedError("Must override frame_frequency")
-
     def sort(self, data: data_store) -> None:
         print('Starting sort "{}" with {} items'.format(
             self.name(), data.size()))
-        data.init(self.name(), self.frame_frequency())
+        data.init(self.name())
         start = datetime.datetime.now()
         self._do_sort(data)
         end = datetime.datetime.now()
         print('\tDone in {}'.format(end - start))
-        data.draw(force=True)
+        data.draw()

@@ -11,9 +11,6 @@ class pancake_sort(sort_base):
     def name(self) -> str:
         return 'Pancake'
 
-    def frame_frequency(self) -> int:
-        return 7000
-
     def _do_sort(self, data: data_store) -> None:
         curr_size = data.size()
         while curr_size > 1:
@@ -21,12 +18,13 @@ class pancake_sort(sort_base):
             if max_index != curr_size - 1:
                 self.__flip(data, max_index)
                 self.__flip(data, curr_size - 1)
+                data.draw()
             curr_size -= 1
 
     def __flip(self, data: data_store, end: int) -> None:
         start = 0
         while start < end:
-            data.swap(start, end)
+            data.swap(start, end, skip_draw=True)
             start += 1
             end -= 1
 

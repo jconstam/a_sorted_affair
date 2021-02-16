@@ -11,9 +11,6 @@ class radix_sort(sort_base):
     def name(self) -> str:
         return 'Radix'
 
-    def frame_frequency(self) -> int:
-        return 16900
-
     def _do_sort(self, data: data_store) -> None:
         max = data.max()
         exp = 1
@@ -32,6 +29,7 @@ class radix_sort(sort_base):
         changed = False
         for i in range(0, data.size() - 1):
             if self.is_greater_than(data, exp, i, i + 1):
-                data.swap(i, i + 1)
+                data.swap(i, i + 1, skip_draw=True)
                 changed = True
+        data.draw()
         return changed

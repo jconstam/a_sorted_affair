@@ -11,9 +11,6 @@ class shell_sort(sort_base):
     def name(self) -> str:
         return 'Shell'
 
-    def frame_frequency(self) -> int:
-        return 55
-
     def _do_sort(self, data: data_store) -> None:
         n = data.size()
         interval = n // 2
@@ -22,7 +19,8 @@ class shell_sort(sort_base):
                 temp = data[i]
                 j = i
                 while j >= interval and data[j - interval] > temp:
-                    data[j] = data[j - interval]
+                    data.set(j, data[j - interval], skip_draw=True)
+                    # data[j] = data[j - interval]
                     j -= interval
 
                 data[j] = temp

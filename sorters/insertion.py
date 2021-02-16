@@ -11,9 +11,6 @@ class insertion_sort(sort_base):
     def name(self) -> str:
         return 'Insertion'
 
-    def frame_frequency(self) -> int:
-        return 2
-
     def _do_sort(self, data: data_store) -> None:
         for i in range(1, data.size()):
             src_index = i

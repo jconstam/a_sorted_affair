@@ -41,7 +41,7 @@ data_types = {
 }
 
 
-def make_video(folder: str, sorter: sort_base, data_type_name: str, data: list, width: int, height: int, fps: int) -> None:
+def make_video(folder: str, sorter: sort_base, data_type_name: str, data: list, width: int, height: int, fps: int, target_len: float, do_smoothing: bool) -> None:
     size = len(data)
 
     drawer = draw_image(width, height, size)
@@ -53,12 +53,15 @@ def make_video(folder: str, sorter: sort_base, data_type_name: str, data: list, 
                         drawer.get_image_size())
 
     store = data_store(drawer, video)
-    store.load(data, sorter.name())
+    store.load(data)
     sorter.sort(store)
 
     video.release()
 
     store.convert(raw_file_name, final_file_name)
+    store.adjust_length(final_file_name, target_len, fps)
+    if do_smoothing:
+        store.smooth_interpolate_video(final_file_name, fps)
 
 
 def __get_data_saw__(size: int, mult: int, reverse: bool):
@@ -102,18 +105,14 @@ def get_data(data_type_name: str, size: int):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Generate videos of sorting algorithms in action')
-    parser.add_argument('-s', '--size', type=int, default=10000,
-                        help='The size of the array to be sorted')
-    parser.add_argument('-o', '--outputFolder', type=str,
-                        default='output/', help='The path to put the videos')
-    parser.add_argument('-w', '--width', type=int,
-                        default=1920, help='The width of the video in pixels')
-    parser.add_argument('-g', '--height', type=int,
-                        default=1080, help='The height of the video in pixels')
-    parser.add_argument('-f', '--fps', type=int,
-                        default=60, help='The framerate of the video in frames per second')
-    parser.add_argument('-d', '--dataType', type=str,
-                        default='random', choices=data_types.keys(), help='The type of data to sort')
+    parser.add_argument('-s', '--size', type=int, default=10000, required=False, help='The size of the array to be sorted')
+    parser.add_argument('-o', '--outputFolder', type=str, default='output/', required=False, help='The path to put the videos')
+    parser.add_argument('-w', '--width', type=int, default=1920, required=False, help='The width of the video in pixels')
+    parser.add_argument('-g', '--height', type=int, default=1080, required=False, help='The height of the video in pixels')
+    parser.add_argument('-f', '--fps', type=int, default=60, required=False, help='The framerate of the video in frames per second')
+    parser.add_argument('-t', '--targetLength', type=float, default=30, required=False, help='The target length of the video in seconds')
+    parser.add_argument('-d', '--dataType', type=str, default='random', required=False, choices=data_types.keys(), help='The type of data to sort')
+    parser.add_argument('--no_interpolation', action='store_true', help='Whether to skip smoothing/interpolation of the output video')
     parser.add_argument('algorithms', metavar='alg', type=str,
                         nargs='+', help='Sorting algorithms to run')
     args = parser.parse_args()
@@ -144,4 +143,4 @@ if __name__ == '__main__':
 
     data = get_data(args.dataType, args.size)
     for sorter in sorters:
-        make_video(folder, sorter, args.dataType, data.copy(), args.width, args.height, args.fps)
+        make_video(folder, sorter, args.dataType, data.copy(), args.width, args.height, args.fps, args.targetLength, not args.no_interpolation)

@@ -14,7 +14,7 @@ big_test_size = 1000
 
 def check_sorted(sorter: sort_base, data):
     store = data_store(None, None)
-    store.load(data, "Test Data")
+    store.load(data)
     sorted_data = sorted(data.copy())
     sorter.sort(store)
 
