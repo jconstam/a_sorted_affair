@@ -23,4 +23,4 @@ jobs:
         pip install -r requirements.txt
     - name: Run
       run: |
-        python3 a_sorted_affair.py -s 100 -d random all
+        bash generate_all.sh 1000

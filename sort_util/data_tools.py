@@ -110,6 +110,8 @@ class data_store:
         print('\tDone in {}'.format(end - start))
         os.remove(in_file)
 
+    def smooth_interpolate_video(self, file: str, fps: int):
+        filename, file_extension = os.path.splitext(file)
         in_file = filename + '_old' + file_extension
         os.rename(file, in_file)
 
