@@ -11,6 +11,7 @@ from sorters.comb import comb_sort
 from sorters.shell import shell_sort
 from sorters.pancake import pancake_sort
 from sorters.gnome import gnome_sort
+from sorters.bucket import bucket_sort
 
 
 class sort:
@@ -25,6 +26,7 @@ class sort:
     __SHELL_NAME = 'Shell'
     __PANCAKE_NAME = 'Pancake'
     __GNOME_NAME = 'Gnome'
+    __BUCKET_NAME = 'Bucket'
 
     __alg_classes = {
         __INSERT_NAME: insertion_sort,
@@ -37,7 +39,8 @@ class sort:
         __COMB_NAME: comb_sort,
         __SHELL_NAME: shell_sort,
         __PANCAKE_NAME: pancake_sort,
-        __GNOME_NAME: gnome_sort
+        __GNOME_NAME: gnome_sort,
+        __BUCKET_NAME: bucket_sort
     }
 
     __short_names = {
@@ -51,7 +54,8 @@ class sort:
         __COMB_NAME: ['comb'],
         __SHELL_NAME: ['shell'],
         __PANCAKE_NAME: ['pancake'],
-        __GNOME_NAME: ['gnome']
+        __GNOME_NAME: ['gnome'],
+        __BUCKET_NAME: ['bucket']
     }
 
     @staticmethod

@@ -13,8 +13,9 @@ from sorters.comb import comb_sort
 from sorters.shell import shell_sort
 from sorters.pancake import pancake_sort
 from sorters.gnome import gnome_sort
+from sorters.bucket import bucket_sort
 
-NUMBER_OF_SORTERS = 11
+NUMBER_OF_SORTERS = 12
 
 
 def test__sort_classes():
@@ -31,6 +32,7 @@ def test__sort_classes():
     assert alg_classes['Shell'] == shell_sort
     assert alg_classes['Pancake'] == pancake_sort
     assert alg_classes['Gnome'] == gnome_sort
+    assert alg_classes['Bucket'] == bucket_sort
 
 
 def test__sort_short_names():
@@ -47,3 +49,4 @@ def test__sort_short_names():
     assert alg_short_names['Shell']
     assert alg_short_names['Pancake']
     assert alg_short_names['Gnome']
+    assert alg_short_names['Bucket']
